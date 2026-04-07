@@ -30,25 +30,25 @@ export const projects: Project[] = [
   {
     slug: "klew",
     title: "Klew",
-    subtitle: "Crossword puzzle marketplace with Apple Pencil handwriting recognition",
+    subtitle: "Crossword puzzle marketplace with Apple Pencil support via iOS Scribble",
     status: "live",
     featured: true,
-    techStack: ["SwiftUI", "Next.js", "CoreML", "Supabase", "Stripe"],
+    techStack: ["SwiftUI", "Next.js", "Rust/WASM", "Supabase", "StoreKit 2"],
     links: {
       live: "https://klew.app",
     },
     caseStudy: {
-      overview: `A two-sided crossword puzzle marketplace where constructors build and publish puzzles, and solvers play them across iOS and web. Features an Apple Pencil handwriting recognition system, a constraint-satisfaction autofill engine, and cross-platform progress sync.`,
+      overview: `A two-sided crossword puzzle marketplace. Constructors build and publish puzzles through a web editor with an autofill engine. Solvers play them on iOS with Apple Pencil support (via native Scribble) or on the web. Cross-platform progress sync, in-app purchases, and a credits-based marketplace economy.`,
       problem: `Crossword puzzle creation tools are either expensive professional software or bare-bones web apps. Solvers are stuck with a few major publishers. There's no open marketplace where independent constructors can publish puzzles and earn revenue, and no solver that lets you write answers with Apple Pencil the way you would on a newspaper.`,
       whatIBuilt: [
-        "iPad solver with Apple Pencil handwriting recognition using a CoreML ensemble approach — five preprocessing strategies with letter-specific confidence thresholds and crossword-context validation",
-        "Web-based grid editor with a CSP (constraint satisfaction) autofill engine backed by a 400k+ word dictionary",
+        "iOS solver with Apple Pencil input via native Scribble — a single persistent ScribbleTextField overlays the selected cell, capturing strokes alongside the OS's built-in recognition while storing PKDrawing data for visual playback",
+        "Web-based grid editor with a Rust/WebAssembly CSP (constraint satisfaction) autofill engine backed by a 400k+ word dictionary",
         "Cross-platform solver with smart cursor navigation, pencil mode for uncertain answers, and check/reveal functionality",
+        "Credits-based marketplace with StoreKit 2 in-app purchases, server-side receipt validation via Supabase Edge Functions, and idempotent transaction processing",
         "Real-time progress sync across devices using Supabase with local-first architecture and last-write-wins conflict resolution",
-        "Constructor publishing workflow with difficulty scoring, content moderation via Claude AI, and Stripe Connect payouts",
-        "Full authentication system with Sign in with Apple and magic link email",
+        "Full authentication with Sign in with Apple and magic link email, constructor profiles, ratings, reviews, and follow system",
       ],
-      keyDecisions: `The handwriting recognition uses a single master PKCanvasView overlaying the entire grid rather than one canvas per cell — this avoids 200+ canvas instances and keeps performance smooth. The ensemble recognizer runs five preprocessing strategies in parallel and uses crossword context (crossing letters, word patterns) to boost confidence. On the web side, the autofill engine is a CSP solver that runs constraint propagation and backtracking search to fill grids with valid words. Local-first sync with a 3-second debounce keeps the experience snappy while ensuring nothing is lost.`,
+      keyDecisions: `The Scribble integration uses one persistent UITextField positioned over the active cell rather than per-cell text fields — this avoids destroying and recreating the responder chain on every cell advance. Strokes are captured at the window level via a custom gesture recognizer on UITextEffectsWindow and buffered without triggering re-renders until Scribble commits a letter. The autofill engine is written in Rust compiled to WebAssembly for near-native performance in the browser. Monetization is purely through Apple IAP — no external payment processor — keeping the stack simple and compliant.`,
     },
   },
   {

@@ -28,6 +28,30 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "klew",
+    title: "Klew",
+    subtitle: "Crossword puzzle marketplace with Apple Pencil handwriting recognition",
+    status: "building",
+    featured: true,
+    techStack: ["SwiftUI", "Next.js", "CoreML", "Supabase", "Stripe"],
+    links: {
+      live: "https://klew.app",
+    },
+    caseStudy: {
+      overview: `A two-sided crossword puzzle marketplace where constructors build and publish puzzles, and solvers play them across iOS and web. Features an Apple Pencil handwriting recognition system, a constraint-satisfaction autofill engine, and cross-platform progress sync.`,
+      problem: `Crossword puzzle creation tools are either expensive professional software or bare-bones web apps. Solvers are stuck with a few major publishers. There's no open marketplace where independent constructors can publish puzzles and earn revenue, and no solver that lets you write answers with Apple Pencil the way you would on a newspaper.`,
+      whatIBuilt: [
+        "iPad solver with Apple Pencil handwriting recognition using a CoreML ensemble approach — five preprocessing strategies with letter-specific confidence thresholds and crossword-context validation",
+        "Web-based grid editor with a CSP (constraint satisfaction) autofill engine backed by a 400k+ word dictionary",
+        "Cross-platform solver with smart cursor navigation, pencil mode for uncertain answers, and check/reveal functionality",
+        "Real-time progress sync across devices using Supabase with local-first architecture and last-write-wins conflict resolution",
+        "Constructor publishing workflow with difficulty scoring, content moderation via Claude AI, and Stripe Connect payouts",
+        "Full authentication system with Sign in with Apple and magic link email",
+      ],
+      keyDecisions: `The handwriting recognition uses a single master PKCanvasView overlaying the entire grid rather than one canvas per cell — this avoids 200+ canvas instances and keeps performance smooth. The ensemble recognizer runs five preprocessing strategies in parallel and uses crossword context (crossing letters, word patterns) to boost confidence. On the web side, the autofill engine is a CSP solver that runs constraint propagation and backtracking search to fill grids with valid words. Local-first sync with a 3-second debounce keeps the experience snappy while ensuring nothing is lost.`,
+    },
+  },
+  {
     slug: "apex146",
     title: "Apex146 Racing Platform",
     subtitle: "Data visualization for professional racing teams",

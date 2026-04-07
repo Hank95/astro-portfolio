@@ -1,0 +1,108 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const slug = post.id.replace(/\.md$/, '');
+const { title, description, publishedAt, author, tags } = post.data;
+
+function getReadingTime(content: string): number {
+  const words = content.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 250));
+}
+
+const readingTime = getReadingTime(post.body ?? '');
+
+const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  author: {
+    '@type': 'Person',
+    name: author,
+  },
+  datePublished: new Date(publishedAt).toISOString(),
+  url: Astro.url.href,
+};
+---
+
+<BaseLayout
+  title={`${title} — Henry Pendleton`}
+  description={description}
+  ogType="article"
+  article={{
+    publishedTime: new Date(publishedAt).toISOString(),
+    author,
+    tags,
+  }}
+  structuredData={structuredData}
+>
+  <main id="main" class="flex-1 py-16">
+    <div class="content-container">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-1 text-small text-text-muted hover:text-accent transition-colors mb-10"
+      >
+        ← Back to Blog
+      </a>
+
+      <article>
+        <header class="mb-10">
+          <p class="text-xs font-mono text-text-subtle mb-3">{formattedDate}</p>
+
+          <h1
+            class="text-title text-text text-balance"
+            transition:name={`blog-title-${slug}`}
+          >
+            {title}
+          </h1>
+
+          <p class="mt-4 text-body text-text-muted">{description}</p>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            {tags.map((tag: string) => (
+              <span class="inline-flex items-center rounded-full bg-bg-subtle border border-border px-2.5 py-0.5 text-xs font-mono text-text-subtle">
+                {tag}
+              </span>
+            ))}
+            <span class="ml-auto text-xs font-mono text-text-subtle shrink-0">
+              {readingTime} min read
+            </span>
+          </div>
+
+          <hr class="mt-8 border-border" />
+        </header>
+
+        <div class="prose prose-neutral dark:prose-invert max-w-2xl">
+          <Content />
+        </div>
+      </article>
+
+      <footer class="mt-16 pt-8 border-t border-border">
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-1 text-small text-text-muted hover:text-accent transition-colors"
+        >
+          ← Back to all posts
+        </a>
+      </footer>
+    </div>
+  </main>
+</BaseLayout>

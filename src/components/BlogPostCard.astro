@@ -1,0 +1,50 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: Date;
+  tags: string[];
+  readingTime?: number;
+}
+
+const { slug, title, description, publishedAt, tags, readingTime } = Astro.props;
+
+const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<a
+  href={`/blog/${slug}`}
+  class="group block rounded-xl border border-border bg-bg p-6 shadow-card
+         transition-all duration-200
+         hover:-translate-y-0.5 hover:shadow-card-hover hover:border-border-hover
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+>
+  <p class="text-xs font-mono text-text-subtle mb-2">{formattedDate}</p>
+
+  <h3
+    class="text-subtitle text-text group-hover:text-accent transition-colors"
+    transition:name={`blog-title-${slug}`}
+  >
+    {title}
+  </h3>
+
+  <p class="mt-2 text-small text-text-muted line-clamp-2">{description}</p>
+
+  <div class="mt-4 flex flex-wrap items-center gap-2">
+    {tags.map((tag) => (
+      <span class="inline-flex items-center rounded-full bg-bg-subtle border border-border px-2.5 py-0.5 text-xs font-mono text-text-subtle">
+        {tag}
+      </span>
+    ))}
+    {readingTime && (
+      <span class="ml-auto text-xs font-mono text-text-subtle shrink-0">
+        {readingTime} min read
+      </span>
+    )}
+  </div>
+</a>

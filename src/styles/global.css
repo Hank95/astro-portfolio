@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light mode (default) */
+  :root {
+    --header-height: 4rem;
+    --color-bg: 250 250 250;
+    --color-bg-subtle: 244 244 245;
+    --color-bg-muted: 228 228 231;
+    --color-text: 24 24 27;
+    --color-text-muted: 113 113 122;
+    --color-text-subtle: 161 161 170;
+    --color-accent: 59 130 246;
+    --color-accent-muted: 29 78 216;
+    --color-status-live: 34 197 94;
+    --color-status-building: 245 158 11;
+    --color-status-professional: 59 130 246;
+    --color-border: 228 228 231;
+    --color-border-hover: 212 212 216;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .dark {
+    --color-bg: 10 10 11;
+    --color-bg-subtle: 20 20 21;
+    --color-bg-muted: 28 28 30;
+    --color-text: 250 250 250;
+    --color-text-muted: 161 161 170;
+    --color-text-subtle: 113 113 122;
+    --color-accent: 96 165 250;
+    --color-accent-muted: 59 130 246;
+    --color-status-live: 34 197 94;
+    --color-status-building: 245 158 11;
+    --color-status-professional: 96 165 250;
+    --color-border: 39 39 42;
+    --color-border-hover: 63 63 70;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  html {
+    @apply bg-bg text-text antialiased;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
+  }
+
+  body {
+    @apply bg-bg text-text font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-text;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-bg-subtle focus:text-text focus:rounded-md focus:ring-2 focus:ring-accent;
+  }
+
+  .content-container {
+    @apply max-w-3xl mx-auto px-6;
+  }
+
+  .wide-container {
+    @apply max-w-5xl mx-auto px-6;
+  }
+}
+
+@layer utilities {
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}

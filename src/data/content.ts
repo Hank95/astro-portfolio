@@ -4,7 +4,7 @@ export const siteConfig = {
   email: "hhpendleton@gmail.com",
   location: "Charleston, SC",
   github: "https://github.com/Hank95",
-  linkedin: "https://linkedin.com/in/henrypendleton",
+  linkedin: "https://www.linkedin.com/in/henry-pendleton",
 };
 
 export const intro = {

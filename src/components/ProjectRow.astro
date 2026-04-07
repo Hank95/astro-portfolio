@@ -1,0 +1,34 @@
+---
+import type { Project } from '@/data/projects';
+import StatusBadge from './StatusBadge.astro';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { slug, title, subtitle, techStack, status } = project;
+
+const displayTech = techStack.slice(0, 3);
+---
+
+<a
+  href={`/projects/${slug}`}
+  class="group flex items-center justify-between gap-4 py-4 px-2 -mx-2 rounded-lg
+         transition-colors duration-150 hover:bg-bg-subtle
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+>
+  <div class="min-w-0 flex-1">
+    <div class="flex items-baseline gap-3 flex-wrap">
+      <h3 class="text-small font-medium text-text group-hover:text-accent transition-colors">
+        {title}
+      </h3>
+      <p class="text-xs text-text-muted truncate">{subtitle}</p>
+    </div>
+    <p class="mt-1 text-xs font-mono text-text-subtle">
+      {displayTech.join(' · ')}{techStack.length > 3 ? ' · …' : ''}
+    </p>
+  </div>
+
+  <StatusBadge status={status} class="shrink-0" />
+</a>

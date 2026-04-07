@@ -1,0 +1,20 @@
+---
+import { moreProjects } from '@/data/projects';
+import ProjectRow from '@/components/ProjectRow.astro';
+---
+
+{moreProjects.length > 0 && (
+  <section class="py-8">
+    <div class="content-container">
+      <h2 class="text-small font-medium text-text-muted uppercase tracking-wider mb-2">
+        More Projects
+      </h2>
+
+      <div class="divide-y divide-border">
+        {moreProjects.map((project) => (
+          <ProjectRow project={project} />
+        ))}
+      </div>
+    </div>
+  </section>
+)}

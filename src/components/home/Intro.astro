@@ -1,0 +1,90 @@
+---
+import { intro } from '@/data/content';
+---
+
+<section
+  id="intro"
+  class="pt-32 md:pt-40 pb-16 min-h-[80vh] flex items-center"
+>
+  <div class="content-container w-full">
+    <h1 class="text-display text-text text-balance">
+      {intro.headline}
+    </h1>
+
+    <p class="mt-3 text-subtitle text-text-muted">
+      {intro.subtitle}
+    </p>
+
+    <p class="mt-4 max-w-xl text-body text-text-muted leading-relaxed">
+      {intro.description}
+    </p>
+
+    <p class="mt-2 text-small text-text-subtle flex items-center gap-1.5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-3.5 h-3.5 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      {intro.location}
+    </p>
+
+    <div class="mt-8 flex items-center gap-4 flex-wrap">
+      <a
+        href="#work"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
+               bg-text text-bg text-small font-medium
+               hover:opacity-90 transition-opacity
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      >
+        View Work
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-4 h-4"
+          aria-hidden="true"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </a>
+
+      <a
+        href="#contact"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
+               border border-border text-text text-small font-medium
+               hover:border-border-hover hover:bg-bg-subtle transition-colors
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      >
+        Get in Touch
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-4 h-4"
+          aria-hidden="true"
+        >
+          <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

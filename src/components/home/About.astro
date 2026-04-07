@@ -1,0 +1,17 @@
+---
+import { about } from '@/data/content';
+---
+
+<section id="about" class="py-16">
+  <div class="content-container">
+    <h2 class="text-title text-text mb-6">About</h2>
+
+    <div class="max-w-2xl space-y-4">
+      {about.paragraphs.map((paragraph) => (
+        <p class="text-body text-text-muted leading-relaxed">
+          {paragraph}
+        </p>
+      ))}
+    </div>
+  </div>
+</section>

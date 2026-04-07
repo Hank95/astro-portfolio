@@ -1,15 +1,53 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Intro from '@/components/home/Intro.astro';
+import SelectedWork from '@/components/home/SelectedWork.astro';
+import MoreProjects from '@/components/home/MoreProjects.astro';
+import About from '@/components/home/About.astro';
+import Now from '@/components/home/Now.astro';
+import Contact from '@/components/home/Contact.astro';
+import { siteConfig } from '@/data/content';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://henrypendleton.com/#website',
+      url: 'https://henrypendleton.com/',
+      name: siteConfig.name,
+      description: 'MarTech Software Engineer building web and marketing technology solutions.',
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://henrypendleton.com/#person',
+      name: siteConfig.name,
+      url: 'https://henrypendleton.com/',
+      jobTitle: siteConfig.title,
+      sameAs: [siteConfig.github, siteConfig.linkedin],
+      email: siteConfig.email,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Charleston',
+        addressRegion: 'SC',
+        addressCountry: 'US',
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title="Henry Pendleton - MarTech Software Engineer"
-  description="MarTech Software Engineer building web and marketing technology solutions."
+  description="MarTech Software Engineer building web and marketing technology solutions. Currently at Maymont Homes in Charleston, SC."
+  structuredData={structuredData}
 >
-  <main id="main" class="flex-1 pt-32">
-    <div class="content-container">
-      <h1 class="text-display text-text">Henry Pendleton</h1>
-      <p class="mt-4 text-body text-text-muted">Site under construction.</p>
-    </div>
+  <main id="main" class="flex-1">
+    <Intro />
+    <SelectedWork />
+    <MoreProjects />
+    <About />
+    <Now />
+    <Contact />
   </main>
 </BaseLayout>

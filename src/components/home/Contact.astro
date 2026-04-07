@@ -1,0 +1,28 @@
+---
+import { contact } from '@/data/content';
+import SocialLinks from '@/components/SocialLinks.astro';
+---
+
+<section id="contact" class="py-16">
+  <div class="content-container">
+    <h2 class="text-title text-text mb-6">Get in Touch</h2>
+
+    <div class="max-w-xl space-y-4">
+      <p class="text-body text-text-muted leading-relaxed">
+        {contact.availability}
+      </p>
+
+      <a
+        href={`mailto:${contact.email}`}
+        class="inline-block text-subtitle font-medium text-accent hover:text-accent-muted transition-colors
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded"
+      >
+        {contact.email}
+      </a>
+
+      <p class="text-small text-text-subtle">{contact.locationNote}</p>
+    </div>
+
+    <SocialLinks class="mt-6" />
+  </div>
+</section>

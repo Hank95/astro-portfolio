@@ -32,12 +32,13 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter Variable', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Sora', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       fontSize: {
-        display: ['3rem', { lineHeight: '1.1', fontWeight: '700' }],
-        title: ['1.875rem', { lineHeight: '1.2', fontWeight: '600' }],
+        display: ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '600' }],
+        title: ['1.875rem', { lineHeight: '1.2', letterSpacing: '-0.01em', fontWeight: '600' }],
         subtitle: ['1.25rem', { lineHeight: '1.4', fontWeight: '500' }],
         body: ['1rem', { lineHeight: '1.6' }],
         small: ['0.875rem', { lineHeight: '1.5' }],

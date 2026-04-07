@@ -4,8 +4,10 @@ import { intro } from '@/data/content';
 
 <section
   id="intro"
-  class="pt-32 md:pt-40 pb-16 min-h-[80vh] flex items-center"
+  class="relative pt-32 md:pt-40 pb-16 min-h-[80vh] flex items-center"
 >
+  <!-- Decorative gradient -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-accent/[0.03] blur-[120px] pointer-events-none" aria-hidden="true"></div>
   <div class="content-container w-full">
     <h1 class="text-3xl sm:text-display text-text text-balance">
       {intro.headline}

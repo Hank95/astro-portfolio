@@ -68,11 +68,11 @@
   }
 
   .content-container {
-    @apply max-w-3xl mx-auto px-6;
+    @apply max-w-3xl mx-auto px-4 sm:px-6;
   }
 
   .wide-container {
-    @apply max-w-5xl mx-auto px-6;
+    @apply max-w-5xl mx-auto px-4 sm:px-6;
   }
 
   .prose {

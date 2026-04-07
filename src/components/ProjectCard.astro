@@ -4,9 +4,10 @@ import StatusBadge from './StatusBadge.astro';
 
 interface Props {
   project: Project;
+  featured?: boolean;
 }
 
-const { project } = Astro.props;
+const { project, featured = false } = Astro.props;
 const { slug, title, subtitle, techStack, status, links } = project;
 ---
 
@@ -25,7 +26,7 @@ const { slug, title, subtitle, techStack, status, links } = project;
       >
         {title}
       </h3>
-      <p class="mt-1 text-small text-text-muted line-clamp-2">{subtitle}</p>
+      <p class:list={['mt-1 text-small text-text-muted', featured ? 'line-clamp-3' : 'line-clamp-2']}>{subtitle}</p>
     </div>
 
     <!-- Quick-link icons (rendered as buttons inside the card link) -->
@@ -104,7 +105,7 @@ const { slug, title, subtitle, techStack, status, links } = project;
 
   <div class="mt-4 flex items-center justify-between gap-2">
     <p class="text-xs font-mono text-text-subtle truncate min-w-0">
-      {techStack.slice(0, 3).join(' · ')}
+      {featured ? techStack.join(' · ') : techStack.slice(0, 3).join(' · ')}
     </p>
     <StatusBadge status={status} />
   </div>

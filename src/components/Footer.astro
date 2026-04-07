@@ -1,14 +1,39 @@
 ---
 import SocialLinks from './SocialLinks.astro';
+import { navLinks } from '@/data/content';
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="py-12 border-t border-border">
-  <div class="max-w-4xl mx-auto px-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
-    <p class="text-sm text-text-muted">
-      &copy; {year} Henry Pendleton
-    </p>
-    <SocialLinks />
+  <div class="content-container">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+      <!-- Left — branding + tagline -->
+      <div>
+        <a href="/" class="text-small font-medium text-text hover:text-accent transition-colors">
+          Henry Pendleton
+        </a>
+        <p class="mt-1 text-xs text-text-subtle">
+          MarTech Software Engineer · Charleston, SC
+        </p>
+      </div>
+
+      <!-- Center — nav -->
+      <nav class="flex gap-6" aria-label="Footer navigation">
+        {navLinks.map((link) => (
+          <a href={link.href} class="text-small text-text-muted hover:text-text transition-colors">
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right — social -->
+      <SocialLinks iconSize="w-4 h-4" />
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-text-subtle">
+      <p>&copy; {year} Henry Pendleton</p>
+      <p>Built with Astro</p>
+    </div>
   </div>
 </footer>

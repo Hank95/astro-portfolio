@@ -2,70 +2,27 @@
 import { now } from '@/data/content';
 ---
 
-<section id="now" class="py-16 animate-on-scroll">
-  <div class="content-container">
-    <h2 class="text-title text-text mb-2">Now</h2>
-    <p class="text-small text-text-muted mb-6">What I'm up to at the moment.</p>
-
-    <div class="grid gap-4 sm:grid-cols-2 max-w-2xl">
-      <!-- Training card -->
+<div class="content-container py-4">
+  <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-small text-text-subtle">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+      <span class="font-mono text-xs uppercase tracking-wider text-text-subtle">Now</span>
+    </div>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
       <a
         href={now.training.link}
         target="_blank"
         rel="noopener noreferrer"
-        class="group block rounded-xl border border-border bg-bg p-5 shadow-card
-               transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover hover:border-border-hover
-               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+        class="flex items-center gap-1.5 hover:text-text transition-colors"
       >
-        <div class="flex items-center gap-2 mb-3 text-text-muted">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="w-4 h-4 shrink-0"
-            aria-hidden="true"
-          >
-            <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-          </svg>
-          <span class="text-xs font-mono uppercase tracking-wider">Training</span>
-        </div>
-        <p class="text-small font-medium text-text group-hover:text-accent transition-colors">
-          {now.training.race}
-        </p>
-        <p class="mt-1 text-xs text-text-subtle">{now.training.date}</p>
+        <svg class="w-3.5 h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+        <span>{now.training.race} <span class="text-text-subtle">· {now.training.date}</span></span>
       </a>
-
-      <!-- Building card -->
-      <div
-        class="rounded-xl border border-border bg-bg p-5 shadow-card"
-      >
-        <div class="flex items-center gap-2 mb-3 text-text-muted">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="w-4 h-4 shrink-0"
-            aria-hidden="true"
-          >
-            <polyline points="16 18 22 12 16 6"></polyline>
-            <polyline points="8 6 2 12 8 18"></polyline>
-          </svg>
-          <span class="text-xs font-mono uppercase tracking-wider">Building</span>
-        </div>
-        <ul class="space-y-1">
-          {now.building.map((item) => (
-            <li class="text-small text-text">{item}</li>
-          ))}
-        </ul>
-      </div>
+      <span class="hidden sm:inline text-border">|</span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <span>{now.building[0]}</span>
+      </span>
     </div>
   </div>
-</section>
+</div>

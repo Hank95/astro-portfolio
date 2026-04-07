@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import BlogPostCard from '@/components/BlogPostCard.astro';
 
 const allPosts = await getCollection('blog');
 
@@ -13,6 +12,10 @@ function getReadingTime(content: string): number {
   const words = content.trim().split(/\s+/).length;
   return Math.max(1, Math.round(words / 250));
 }
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 ---
 
 <BaseLayout
@@ -22,23 +25,48 @@ function getReadingTime(content: string): number {
   <main id="main" class="flex-1 py-16">
     <div class="content-container">
       <header class="mb-12">
-        <h1 class="text-title text-text">Blog</h1>
+        <h1 class="text-title text-text">Writing</h1>
         <p class="mt-3 text-body text-text-muted max-w-xl">
-          Writing about software engineering, marketing technology, side projects, and occasionally what it's like to run very long distances.
+          Software engineering, marketing technology, side projects, and occasionally what it's like to run very long distances.
         </p>
       </header>
 
-      <div class="grid gap-4 sm:grid-cols-2">
-        {posts.map((post) => (
-          <BlogPostCard
-            slug={post.id.replace(/\.md$/, '')}
-            title={post.data.title}
-            description={post.data.description}
-            publishedAt={post.data.publishedAt}
-            tags={post.data.tags}
-            readingTime={getReadingTime(post.body ?? '')}
-          />
-        ))}
+      <div class="divide-y divide-border">
+        {posts.map((post) => {
+          const slug = post.id.replace(/\.md$/, '');
+          const readingTime = getReadingTime(post.body ?? '');
+          return (
+            <a
+              href={`/blog/${slug}`}
+              class="group block py-6 first:pt-0 last:pb-0 hover:bg-bg-subtle -mx-4 px-4 rounded-lg transition-colors"
+            >
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-8">
+                <h2
+                  class="text-subtitle text-text group-hover:text-accent transition-colors"
+                  transition:name={`blog-title-${slug}`}
+                >
+                  {post.data.title}
+                </h2>
+                <div class="flex items-center gap-3 text-xs font-mono text-text-subtle shrink-0">
+                  <time datetime={new Date(post.data.publishedAt).toISOString()}>
+                    {formatDate(new Date(post.data.publishedAt))}
+                  </time>
+                  <span>{readingTime} min</span>
+                </div>
+              </div>
+              <p class="mt-1.5 text-small text-text-muted max-w-2xl">
+                {post.data.description}
+              </p>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="mt-2 flex gap-2">
+                  {post.data.tags.map((tag: string) => (
+                    <span class="text-xs font-mono text-text-subtle">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </a>
+          );
+        })}
       </div>
     </div>
   </main>

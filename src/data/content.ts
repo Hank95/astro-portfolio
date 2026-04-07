@@ -16,11 +16,6 @@ export const intro = {
 };
 
 export const now = {
-  training: {
-    race: "Kiawah Marathon",
-    date: "December 2026",
-    link: "https://kiawahresortmarathon.com/",
-  },
   building: [
     "MarTech Software Engineer at Maymont Homes",
     "Building marketing automation and web technology solutions",
@@ -31,7 +26,7 @@ export const about = {
   paragraphs: [
     "MarTech Software Engineer at Maymont Homes in Charleston, SC. I design and develop web and marketing technology solutions that enhance digital performance, enable automation, and strengthen customer engagement.",
     "Before this role, I built React dashboards, native iOS apps, and Python-based analytics tools. Earlier still, I worked in yacht sales and studied economics\u2014different work, but the same skills: understanding real needs, communicating clearly, and solving problems systematically.",
-    "Outside of work, I\u2019m training for the Kiawah Marathon this December.",
+    "Outside of work, I\u2019m usually on a long run or building something.",
   ],
 };
 

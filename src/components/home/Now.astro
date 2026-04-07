@@ -8,21 +8,9 @@ import { now } from '@/data/content';
       <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
       <span class="font-mono text-xs uppercase tracking-wider text-text-subtle">Now</span>
     </div>
-    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-      <a
-        href={now.training.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center gap-1.5 hover:text-text transition-colors"
-      >
-        <svg class="w-3.5 h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
-        <span>{now.training.race} <span class="text-text-subtle">· {now.training.date}</span></span>
-      </a>
-      <span class="hidden sm:inline text-border">|</span>
-      <span class="flex items-center gap-1.5">
-        <svg class="w-3.5 h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-        <span>{now.building[0]}</span>
-      </span>
-    </div>
+    <span class="flex items-center gap-1.5">
+      <svg class="w-3.5 h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      <span>{now.building[0]}</span>
+    </span>
   </div>
 </div>

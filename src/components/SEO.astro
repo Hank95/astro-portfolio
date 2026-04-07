@@ -1,0 +1,63 @@
+---
+interface ArticleMeta {
+  publishedTime?: string;
+  author?: string;
+  tags?: string[];
+}
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: string;
+  article?: ArticleMeta;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl = Astro.url.href,
+  ogImage = '/og-image.jpg',
+  ogType = 'website',
+  article,
+} = Astro.props;
+
+const ogImageAbsolute = ogImage.startsWith('http')
+  ? ogImage
+  : new URL(ogImage, Astro.site ?? Astro.url).href;
+---
+
+<!-- Primary meta tags -->
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageAbsolute} />
+<meta property="og:site_name" content="Henry Pendleton" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageAbsolute} />
+
+<!-- Article-specific meta -->
+{article && (
+  <>
+    {article.publishedTime && (
+      <meta property="article:published_time" content={article.publishedTime} />
+    )}
+    {article.author && (
+      <meta property="article:author" content={article.author} />
+    )}
+    {article.tags?.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+  </>
+)}

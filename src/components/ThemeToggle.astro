@@ -1,0 +1,126 @@
+---
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Switch to dark mode"
+  class="relative flex h-9 w-9 items-center justify-center rounded-md text-text-muted transition-colors hover:bg-bg-subtle hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+>
+  <!-- Sun icon: shown when in dark mode -->
+  <svg
+    id="theme-icon-sun"
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="hidden"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+  </svg>
+
+  <!-- Moon icon: shown when in light mode -->
+  <svg
+    id="theme-icon-moon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="hidden"
+    aria-hidden="true"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+  </svg>
+
+  <!-- Monitor icon: shown when in system mode -->
+  <svg
+    id="theme-icon-monitor"
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="hidden"
+    aria-hidden="true"
+  >
+    <rect width="20" height="14" x="2" y="3" rx="2" />
+    <path d="M8 21h8M12 17v4" />
+  </svg>
+</button>
+
+<script>
+  type Theme = 'light' | 'dark' | 'system';
+
+  function setupThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    const iconSun = document.getElementById('theme-icon-sun');
+    const iconMoon = document.getElementById('theme-icon-moon');
+    const iconMonitor = document.getElementById('theme-icon-monitor');
+
+    function getTheme(): Theme {
+      return (localStorage.getItem('theme') as Theme) ?? 'system';
+    }
+
+    function applyTheme(theme: Theme) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const shouldBeDark = theme === 'dark' || (theme === 'system' && prefersDark);
+      document.documentElement.classList.toggle('dark', shouldBeDark);
+    }
+
+    function updateUI(theme: Theme) {
+      // Hide all icons
+      iconSun?.classList.add('hidden');
+      iconMoon?.classList.add('hidden');
+      iconMonitor?.classList.add('hidden');
+
+      if (theme === 'light') {
+        iconMoon?.classList.remove('hidden');
+        btn?.setAttribute('aria-label', 'Switch to dark mode');
+      } else if (theme === 'dark') {
+        iconSun?.classList.remove('hidden');
+        btn?.setAttribute('aria-label', 'Switch to system mode');
+      } else {
+        iconMonitor?.classList.remove('hidden');
+        btn?.setAttribute('aria-label', 'Switch to light mode');
+      }
+    }
+
+    function cycleTheme() {
+      const current = getTheme();
+      const next: Theme =
+        current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+      updateUI(next);
+    }
+
+    const theme = getTheme();
+    applyTheme(theme);
+    updateUI(theme);
+
+    // Remove old listener before adding a new one (handles astro:after-swap re-runs)
+    btn.removeEventListener('click', cycleTheme);
+    btn.addEventListener('click', cycleTheme);
+  }
+
+  setupThemeToggle();
+  document.addEventListener('astro:after-swap', setupThemeToggle);
+</script>

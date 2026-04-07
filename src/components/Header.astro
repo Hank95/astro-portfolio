@@ -1,0 +1,66 @@
+---
+import { navLinks, siteConfig } from '@/data/content';
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
+>
+  <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+    <!-- Name / logo -->
+    <a
+      href="/"
+      class="text-text font-semibold tracking-tight hover:text-accent transition-colors"
+    >
+      {siteConfig.name}
+    </a>
+
+    <!-- Nav links + theme toggle -->
+    <nav aria-label="Primary navigation" class="flex items-center gap-6">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-text-muted hover:text-text transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
+
+<script>
+  function setupHeader() {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+
+    function onScroll() {
+      if (window.scrollY > 10) {
+        header!.classList.add(
+          'bg-bg/80',
+          'backdrop-blur-md',
+          'border-b',
+          'border-border'
+        );
+      } else {
+        header!.classList.remove(
+          'bg-bg/80',
+          'backdrop-blur-md',
+          'border-b',
+          'border-border'
+        );
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // Run immediately in case the page is already scrolled (e.g. after a swap)
+    onScroll();
+  }
+
+  setupHeader();
+  document.addEventListener('astro:after-swap', setupHeader);
+</script>

@@ -1,0 +1,103 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import SEO from '@/components/SEO.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import '@/styles/global.css';
+
+interface ArticleMeta {
+  publishedTime?: string;
+  author?: string;
+  tags?: string[];
+}
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: string;
+  article?: ArticleMeta;
+  structuredData?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  ogType,
+  article,
+  structuredData,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Inline theme script: runs immediately to prevent flash of wrong theme -->
+    <script is:inline>
+      (function () {
+        var theme = localStorage.getItem('theme') || 'system';
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (theme === 'system' && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Inter (300–700) + JetBrains Mono (400, 500) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/hp_logo2_white.svg" />
+
+    <title>{title}</title>
+
+    <SEO
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      ogType={ogType}
+      article={article}
+    />
+
+    <!-- Structured data JSON-LD -->
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
+
+    <!-- Google Analytics 4 -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MV1MBK53X6"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-MV1MBK53X6');
+    </script>
+
+    <ViewTransitions />
+  </head>
+  <body class="min-h-screen flex flex-col bg-bg text-text">
+    <!-- Skip to main content -->
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+    >
+      Skip to main content
+    </a>
+
+    <Header />
+
+    <slot />
+
+    <Footer />
+  </body>
+</html>

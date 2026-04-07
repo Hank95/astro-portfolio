@@ -89,6 +89,8 @@
 
   .content-container {
     @apply max-w-3xl mx-auto px-4 sm:px-6;
+    max-width: min(48rem, 100vw);
+    box-sizing: border-box;
   }
 
   .wide-container {

@@ -31,7 +31,7 @@ export const projects: Project[] = [
     slug: "klew",
     title: "Klew",
     subtitle: "Crossword puzzle marketplace with Apple Pencil handwriting recognition",
-    status: "building",
+    status: "live",
     featured: true,
     techStack: ["SwiftUI", "Next.js", "CoreML", "Supabase", "Stripe"],
     links: {

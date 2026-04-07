@@ -102,9 +102,9 @@ const { slug, title, subtitle, techStack, status, links } = project;
     </div>
   </div>
 
-  <div class="mt-4 flex items-center justify-between gap-3">
-    <p class="text-xs font-mono text-text-subtle truncate">
-      {techStack.join(' · ')}
+  <div class="mt-4 flex items-center justify-between gap-2">
+    <p class="text-xs font-mono text-text-subtle truncate min-w-0">
+      {techStack.slice(0, 3).join(' · ')}
     </p>
     <StatusBadge status={status} />
   </div>

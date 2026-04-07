@@ -42,7 +42,7 @@
   }
 
   html {
-    @apply bg-bg text-text antialiased;
+    @apply bg-bg text-text antialiased overflow-x-hidden;
     scroll-behavior: smooth;
     scroll-padding-top: var(--header-height);
   }

@@ -1,0 +1,21 @@
+{
+  "name": "Henry Pendleton Portfolio",
+  "short_name": "HP Portfolio",
+  "description": "Full Stack Software Engineer portfolio showcasing projects and experience",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["business", "portfolio", "developer"],
+  "icons": [
+    {
+      "src": "/hp_logo2_white.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

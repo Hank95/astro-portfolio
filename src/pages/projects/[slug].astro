@@ -1,0 +1,319 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import StatusBadge from '@/components/StatusBadge.astro';
+import { projects, getProject } from '@/data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = getProject(slug);
+
+if (!project) {
+  return Astro.redirect('/404');
+}
+---
+
+<BaseLayout
+  title={`${project.title} - Henry Pendleton`}
+  description={project.subtitle}
+>
+  <main id="main" class="flex-1 pt-24 pb-24">
+
+    <!-- Back link -->
+    <div class="content-container mb-8">
+      <a
+        href="/#work"
+        class="inline-flex items-center gap-2 text-small text-text-muted hover:text-text transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="16"
+          height="16"
+          aria-hidden="true"
+        >
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Work
+      </a>
+    </div>
+
+    <!-- Header section -->
+    <header class="content-container mb-12">
+      <h1
+        class="text-display text-text"
+        transition:name={`project-title-${project.slug}`}
+      >
+        {project.title}
+      </h1>
+
+      <p class="mt-3 text-subtitle text-text-muted">
+        {project.subtitle}
+      </p>
+
+      <div class="mt-5 flex flex-wrap items-center gap-3">
+        <StatusBadge status={project.status} />
+
+        <div class="flex flex-wrap gap-2">
+          {project.techStack.map((tech) => (
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-bg-subtle text-text-muted border border-border">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Link buttons -->
+      {(project.links.live || project.links.github || project.links.appStore || project.links.website) && (
+        <div class="mt-6 flex flex-wrap gap-3">
+          {project.links.live && (
+            <a
+              href={project.links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-text text-bg text-small font-medium hover:opacity-90 transition-opacity"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="14"
+                height="14"
+                aria-hidden="true"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              View Live
+            </a>
+          )}
+
+          {project.links.github && (
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border text-text text-small font-medium hover:border-border-hover hover:bg-bg-subtle transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="14"
+                height="14"
+                aria-hidden="true"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              View Source
+            </a>
+          )}
+
+          {project.links.appStore && (
+            <a
+              href={project.links.appStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border text-text text-small font-medium hover:border-border-hover hover:bg-bg-subtle transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="14"
+                height="14"
+                aria-hidden="true"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              App Store
+            </a>
+          )}
+
+          {project.links.website && (
+            <a
+              href={project.links.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border text-text text-small font-medium hover:border-border-hover hover:bg-bg-subtle transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="14"
+                height="14"
+                aria-hidden="true"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              Website
+            </a>
+          )}
+        </div>
+      )}
+    </header>
+
+    <!-- Project images -->
+    {project.images && project.images.length > 0 && (
+      <div class="mb-16">
+        <!-- First image: full-width in wide-container -->
+        <div class="wide-container mb-4">
+          <figure>
+            <img
+              src={project.images[0].src}
+              alt={project.images[0].alt}
+              class="w-full rounded-lg border border-border"
+              loading="eager"
+            />
+            {project.images[0].caption && (
+              <figcaption class="mt-2 text-center text-small text-text-subtle">
+                {project.images[0].caption}
+              </figcaption>
+            )}
+          </figure>
+        </div>
+
+        <!-- Additional images: 2-col grid in wide-container -->
+        {project.images.length > 1 && (
+          <div class="wide-container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {project.images.slice(1).map((image) => (
+                <figure>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    class="w-full rounded-lg border border-border"
+                    loading="lazy"
+                  />
+                  {image.caption && (
+                    <figcaption class="mt-2 text-center text-small text-text-subtle">
+                      {image.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    )}
+
+    <!-- Case study sections -->
+    {project.caseStudy && (
+      <div class="content-container space-y-10">
+
+        <!-- Overview -->
+        <section>
+          <h2 class="text-title text-text mb-3">Overview</h2>
+          <p class="text-body text-text-muted leading-relaxed">
+            {project.caseStudy.overview}
+          </p>
+        </section>
+
+        <!-- The Problem -->
+        {project.caseStudy.problem && (
+          <section>
+            <h2 class="text-title text-text mb-3">The Problem</h2>
+            <p class="text-body text-text-muted leading-relaxed">
+              {project.caseStudy.problem}
+            </p>
+          </section>
+        )}
+
+        <!-- What I Built -->
+        {project.caseStudy.whatIBuilt && project.caseStudy.whatIBuilt.length > 0 && (
+          <section>
+            <h2 class="text-title text-text mb-3">What I Built</h2>
+            <ul class="space-y-2">
+              {project.caseStudy.whatIBuilt.map((item) => (
+                <li class="flex gap-3 text-body text-text-muted leading-relaxed">
+                  <span class="shrink-0 text-text-subtle select-none">—</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <!-- Key Decisions -->
+        {project.caseStudy.keyDecisions && (
+          <section>
+            <h2 class="text-title text-text mb-3">Key Decisions</h2>
+            <p class="text-body text-text-muted leading-relaxed">
+              {project.caseStudy.keyDecisions}
+            </p>
+          </section>
+        )}
+
+        <!-- Results -->
+        {project.caseStudy.results && (
+          <section>
+            <h2 class="text-title text-text mb-3">Results</h2>
+            <p class="text-body text-text-muted leading-relaxed">
+              {project.caseStudy.results}
+            </p>
+          </section>
+        )}
+
+      </div>
+    )}
+
+    <!-- Bottom navigation -->
+    <div class="content-container mt-16 pt-8 border-t border-border">
+      <a
+        href="/#work"
+        class="inline-flex items-center gap-2 text-small text-text-muted hover:text-text transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="16"
+          height="16"
+          aria-hidden="true"
+        >
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to all projects
+      </a>
+    </div>
+
+  </main>
+</BaseLayout>

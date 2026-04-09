@@ -2,8 +2,10 @@
   <style>
     text {
       font-family: 'Times New Roman', Times, serif;
-      font-size: 52px;
+      font-size: 48px;
       font-weight: 400;
+      text-anchor: middle;
+      dominant-baseline: central;
     }
     @media (prefers-color-scheme: light) {
       text { fill: #18181b; }
@@ -12,6 +14,6 @@
       text { fill: #fafafa; }
     }
   </style>
-  <text x="5" y="68">H</text>
-  <text x="46" y="68">P</text>
+  <text x="30" y="52">H</text>
+  <text x="70" y="52">P</text>
 </svg>

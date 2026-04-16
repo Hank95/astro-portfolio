@@ -1,0 +1,13 @@
+{
+  "id_prefix": "PRJ-",
+  "default_assignee": "Henry",
+  "stakeholders": [],
+  "jira": {
+    "default_project": null,
+    "status_map": {"backlog": "To Do", "active": "In Progress", "blocked": "Blocked", "done": "Done"},
+    "priority_map": {"high": "High", "medium": "Medium", "low": "Low"}
+  },
+  "wrike": {
+    "folder_id": null
+  }
+}

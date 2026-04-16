@@ -6,3 +6,6 @@ dist/
 .env.*
 portfolio-react/
 portfolio-projects/
+
+# MDPM local sync cache
+.mdpm/sync-state.json

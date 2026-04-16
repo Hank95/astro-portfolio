@@ -221,6 +221,32 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "mdpm",
+    title: "MDPM",
+    subtitle:
+      "Markdown-native project tracker plugin for Claude Code",
+    status: "live",
+    featured: false,
+    techStack: ["Python", "Claude Code Plugin", "YAML", "Markdown"],
+    links: {
+      github: "https://github.com/Hank95/mdpm",
+    },
+    caseStudy: {
+      overview: `A lightweight, markdown-native project management system built as a Claude Code plugin. Tasks are plain .md files with YAML frontmatter, and status is represented by directory — backlog/, active/, done/. Zero dependencies, fully file-based, and designed so AI coding agents can do project management alongside engineering work in the same session.`,
+      problem: `AI coding agents like Claude Code are great at writing code, but managing the work around it — tracking tasks, priorities, blockers, and dependencies — still requires switching to external tools like Jira or Wrike. I wanted a system that lives in the repo, works equally well for humans and AI agents, and optionally syncs to stakeholder-facing tools when needed.`,
+      whatIBuilt: [
+        "Claude Code plugin with 15+ slash commands for daily task management, planning, and triage",
+        "Deterministic Python CLI (stdlib-only, zero dependencies) that mirrors every slash command for scripting and inline use",
+        "Directory-as-status convention — ls tells you the state of the project without any tooling",
+        "Automatic work log appended to each task file, creating an append-only audit trail",
+        "Feature planning command that breaks a feature into 3–8 tasks with dependency mapping",
+        "Optional Jira and Wrike sync bridges via MCP servers for stakeholder visibility",
+        "Local kanban board server with zero external dependencies",
+      ],
+      keyDecisions: `Stdlib-only Python keeps the plugin portable with zero install friction — no pip, no venv, just clone and go. The directory-as-status pattern means the file system itself is the database, making it trivially inspectable with standard Unix tools. Every operation goes through a shared core library so slash commands and the CLI behave identically. Task files are never deleted, only moved, preserving full history.`,
+    },
+  },
+  {
     slug: "treasuremap",
     title: "Rhumbly",
     subtitle: "Location-based treasure hunt iOS app",

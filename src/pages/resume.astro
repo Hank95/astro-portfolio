@@ -43,12 +43,7 @@ const personSchema = {
       addressCountry: "US",
     },
   })),
-  knowsAbout: [
-    ...resume.technicalSkills.languages,
-    ...resume.technicalSkills.webDevelopment,
-    ...resume.technicalSkills.databases,
-    ...resume.technicalSkills.martech,
-  ],
+  knowsAbout: Object.values(resume.technicalSkills).flat(),
 };
 
 const profilePageSchema = {
@@ -155,7 +150,7 @@ const profilePageSchema = {
             {Object.entries(resume.technicalSkills).map(([category, skills]) => (
               <div>
                 <h3 class="text-sm font-medium text-text-muted resume-muted uppercase tracking-wide mb-3">
-                  {category.replace(/([A-Z])/g, ' $1').trim()}
+                  {category.includes(' ') ? category : category.replace(/([A-Z])/g, ' $1').trim()}
                 </h3>
                 <div class="flex flex-wrap gap-2">
                   {skills.map((skill) => (
@@ -348,7 +343,7 @@ const profilePageSchema = {
   </main>
 </BaseLayout>
 
-<style>
+<style is:global>
   @media print {
     @page {
       margin: 0.5in;
@@ -357,18 +352,26 @@ const profilePageSchema = {
     body {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
+      background: white !important;
+      min-height: auto !important;
     }
-    /* Hide site header, footer, nav, and fixed elements */
+    /* Hide site header, footer, nav, skip links, and fixed elements */
     header:not(.resume-header),
     footer,
     nav,
-    [class*="fixed"] {
+    [class*="fixed"],
+    .skip-link {
       display: none !important;
+    }
+    /* Remove the fixed-nav spacer padding */
+    #main {
+      padding-top: 0 !important;
     }
     .resume-container {
       background: white !important;
       color: #1a1a1a !important;
       box-shadow: none !important;
+      border-radius: 0 !important;
       max-width: 100% !important;
       padding: 0 !important;
     }
@@ -395,6 +398,7 @@ const profilePageSchema = {
     .resume-skill-tag {
       background: #f5f5f5 !important;
       border-color: #e5e5e5 !important;
+      color: #525252 !important;
     }
     .resume-item {
       background: transparent !important;

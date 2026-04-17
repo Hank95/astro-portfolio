@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const uses = [
+  {
+    category: "Editor & Terminal",
+    items: [
+      { name: "VS Code", note: "Primary editor. Vim keybindings, minimal extensions." },
+      { name: "Xcode", note: "SwiftUI development for iOS apps." },
+      { name: "Claude Code", note: "AI-assisted development in the terminal." },
+      { name: "iTerm2", note: "Terminal emulator with tmux-style splits." },
+      { name: "zsh + Oh My Zsh", note: "Shell with custom aliases and git shortcuts." },
+    ],
+  },
+  {
+    category: "Languages & Frameworks",
+    items: [
+      { name: "TypeScript", note: "Default for anything web." },
+      { name: "Python", note: "Data work, scripts, Flask backends." },
+      { name: "Swift / SwiftUI", note: "iOS apps. ListLive, CribScore, Klew, Rhumbly." },
+      { name: "React", note: "UI library of choice. Used professionally and on side projects." },
+      { name: "Astro", note: "This site. Great for content-driven static sites." },
+      { name: "Tailwind CSS", note: "Utility-first CSS. Hard to go back after using it." },
+    ],
+  },
+  {
+    category: "Services & Infrastructure",
+    items: [
+      { name: "Supabase", note: "Auth, database, edge functions, storage. Powers Klew." },
+      { name: "Cloudflare Pages", note: "Hosting for this portfolio. Fast, free tier is generous." },
+      { name: "GitHub", note: "Code hosting, CI/CD with Actions." },
+      { name: "Tailscale", note: "Mesh VPN for accessing home devices and dev servers remotely." },
+    ],
+  },
+  {
+    category: "Hardware",
+    items: [
+      { name: "MacBook Pro 14\" (M3 Pro)", note: "Daily driver for development." },
+      { name: "Raspberry Pi", note: "Home dashboard, e-ink display, sensor hub." },
+      { name: "ESP32", note: "Temperature and humidity monitoring around the house." },
+    ],
+  },
+  {
+    category: "Apps I Use Daily",
+    items: [
+      { name: "Down Dog", note: "Yoga multiple times a week for years. Wrote a blog post about the engineering behind it." },
+      { name: "Strava", note: "Run tracking. Also built Strava Local to analyze my own data." },
+      { name: "Things 3", note: "Personal task management. Simple and fast." },
+      { name: "Arc Browser", note: "Primary browser. Spaces and split views are great for dev work." },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Uses — Henry Pendleton"
+  description="The tools, hardware, and software I use for development, design, and daily life."
+>
+  <main id="main" class="flex-1 py-16">
+    <div class="content-container">
+      <header class="mb-12">
+        <h1 class="text-title text-text">Uses</h1>
+        <p class="mt-3 text-body text-text-muted max-w-xl">
+          Tools, hardware, and software I use for building things. Updated occasionally.
+        </p>
+      </header>
+
+      <div class="space-y-12 max-w-2xl">
+        {uses.map((section) => (
+          <section>
+            <h2 class="text-lg font-semibold text-text mb-6 pb-2 border-b border-border">
+              {section.category}
+            </h2>
+            <ul class="space-y-4">
+              {section.items.map((item) => (
+                <li class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
+                  <span class="text-text font-medium shrink-0">{item.name}</span>
+                  <span class="text-sm text-text-muted">{item.note}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </main>
+</BaseLayout>

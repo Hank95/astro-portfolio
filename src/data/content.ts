@@ -41,4 +41,5 @@ export const navLinks = [
   { label: "Work", href: "/#work" },
   { label: "Blog", href: "/blog" },
   { label: "Resume", href: "/resume" },
+  { label: "Uses", href: "/uses" },
 ];

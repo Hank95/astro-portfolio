@@ -92,7 +92,7 @@ As an engineer, that's the part I find most elegant. It's not brute force (recor
 
 I should note: I have no affiliation with Down Dog. The architecture I've described is based on publicly available information: the JetBrains case study, [interviews with the founders](https://seattleyoganews.com/down-dog-app-yoga/), and my own observations as a long-time user. Some of the specifics about how content segments are stored and assembled are my best inference, not confirmed implementation details.
 
-If anyone on the Down Dog team ever reads this and wants to correct or expand on anything, I'd genuinely love to hear from you. [Reach out anytime](mailto:hhpendleton@gmail.com).
+If anyone on the Down Dog team ever reads this and wants to correct or expand on anything, I'd genuinely love to hear from you. [Reach out anytime](mailto:me@henrypendleton.com).
 
 ---
 

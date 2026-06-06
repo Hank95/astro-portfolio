@@ -2,7 +2,7 @@ export const resume = {
   name: "Henry Pendleton",
   location: "Charleston, SC 29401",
   phone: "540-761-1806",
-  email: "hhpendleton@gmail.com",
+  email: "me@henrypendleton.com",
   github: "hank95",
   title: "MarTech Software Engineer",
   summary:

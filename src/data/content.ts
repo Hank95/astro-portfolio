@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Henry Pendleton",
   title: "MarTech Software Engineer",
-  email: "hhpendleton@gmail.com",
+  email: "me@henrypendleton.com",
   location: "Charleston, SC",
   github: "https://github.com/Hank95",
   linkedin: "https://www.linkedin.com/in/henry-pendleton",
@@ -31,7 +31,7 @@ export const about = {
 };
 
 export const contact = {
-  email: "hhpendleton@gmail.com",
+  email: "me@henrypendleton.com",
   availability:
     "Always interested in connecting and discussing MarTech, web development, or side projects.",
   locationNote: "Based in Charleston, SC.",

@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import StatusBadge from '@/components/StatusBadge.astro';
 import { projects, getProject } from '@/data/projects';
+import { graph, personSchema, breadcrumbs, PERSON_ID, absoluteUrl } from '@/utils/schema';
 
 export function getStaticPaths() {
   return projects.map((project) => ({
@@ -15,11 +16,43 @@ const project = getProject(slug);
 if (!project) {
   return Astro.redirect('/404');
 }
+
+const projectUrl = Astro.url.href;
+const externalLinks = Object.values(project.links).filter(Boolean) as string[];
+const isApp = Boolean(project.links.appStore);
+
+const workSchema = {
+  '@type': isApp ? 'SoftwareApplication' : 'CreativeWork',
+  '@id': `${projectUrl}#project`,
+  name: project.title,
+  description: project.caseStudy?.overview ?? project.subtitle,
+  url: projectUrl,
+  creator: { '@id': PERSON_ID },
+  author: { '@id': PERSON_ID },
+  keywords: project.techStack,
+  ...(externalLinks.length ? { sameAs: externalLinks } : {}),
+  ...(isApp
+    ? { applicationCategory: 'MobileApplication', operatingSystem: 'iOS' }
+    : {}),
+  ...(project.images?.[0] ? { image: absoluteUrl(project.images[0].src) } : {}),
+};
+
+const structuredData = graph([
+  personSchema,
+  workSchema,
+  breadcrumbs([
+    { name: 'Home', url: '/' },
+    { name: 'Work', url: '/#work' },
+    { name: project.title, url: `/projects/${project.slug}` },
+  ]),
+]);
 ---
 
 <BaseLayout
   title={`${project.title} - Henry Pendleton`}
   description={project.subtitle}
+  ogImage={`/og/projects/${project.slug}.png`}
+  structuredData={structuredData}
 >
   <main id="main" class="flex-1 pt-24 pb-24">
 

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { graph, personSchema, breadcrumbs, PERSON_ID, SITE_URL, absoluteUrl } from '@/utils/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -21,7 +22,9 @@ function getReadingTime(content: string): number {
   return Math.max(1, Math.round(words / 250));
 }
 
-const readingTime = getReadingTime(post.body ?? '');
+const body = post.body ?? '';
+const readingTime = getReadingTime(body);
+const wordCount = body.trim().split(/\s+/).length;
 
 const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
   year: 'numeric',
@@ -29,18 +32,33 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
   day: 'numeric',
 });
 
-const structuredData = {
-  '@context': 'https://schema.org',
+const blogPosting = {
   '@type': 'BlogPosting',
+  '@id': `${Astro.url.href}#article`,
   headline: title,
   description,
-  author: {
-    '@type': 'Person',
-    name: author,
-  },
-  datePublished: new Date(publishedAt).toISOString(),
+  image: absoluteUrl(`/og/${slug}.png`),
   url: Astro.url.href,
+  mainEntityOfPage: Astro.url.href,
+  datePublished: new Date(publishedAt).toISOString(),
+  dateModified: new Date(publishedAt).toISOString(),
+  author: { '@id': PERSON_ID },
+  publisher: { '@id': PERSON_ID },
+  keywords: tags,
+  wordCount,
+  inLanguage: 'en-US',
+  isPartOf: { '@id': `${SITE_URL}/#website` },
 };
+
+const structuredData = graph([
+  personSchema,
+  blogPosting,
+  breadcrumbs([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: title, url: `/blog/${slug}` },
+  ]),
+]);
 ---
 
 <BaseLayout

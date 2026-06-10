@@ -1,12 +1,45 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { graph, personSchema, breadcrumbs, PERSON_ID, SITE_URL } from '@/utils/schema';
 
 const allPosts = await getCollection('blog');
 
 const posts = allPosts.sort(
   (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
 );
+
+const blogSchema = {
+  '@type': 'Blog',
+  '@id': `${SITE_URL}/blog`,
+  name: 'Henry Pendleton — Writing',
+  description:
+    'Thoughts on software engineering, MarTech, side projects, and the occasional ultrarunning tangent.',
+  url: `${SITE_URL}/blog`,
+  inLanguage: 'en-US',
+  author: { '@id': PERSON_ID },
+  publisher: { '@id': PERSON_ID },
+  blogPost: posts.map((post) => {
+    const slug = post.id.replace(/\.md$/, '');
+    return {
+      '@type': 'BlogPosting',
+      headline: post.data.title,
+      description: post.data.description,
+      url: `${SITE_URL}/blog/${slug}`,
+      datePublished: new Date(post.data.publishedAt).toISOString(),
+      keywords: post.data.tags,
+    };
+  }),
+};
+
+const structuredData = graph([
+  personSchema,
+  blogSchema,
+  breadcrumbs([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' },
+  ]),
+]);
 
 function getReadingTime(content: string): number {
   const words = content.trim().split(/\s+/).length;
@@ -21,6 +54,7 @@ function formatDate(date: Date): string {
 <BaseLayout
   title="Blog — Henry Pendleton"
   description="Thoughts on software engineering, MarTech, side projects, and the occasional ultrarunning tangent."
+  structuredData={structuredData}
 >
   <main id="main" class="flex-1 py-16">
     <div class="content-container">

@@ -6,35 +6,10 @@ import MoreProjects from '@/components/home/MoreProjects.astro';
 import About from '@/components/home/About.astro';
 import Now from '@/components/home/Now.astro';
 import Contact from '@/components/home/Contact.astro';
-import { siteConfig } from '@/data/content';
+import Faq from '@/components/home/Faq.astro';
+import { graph, websiteSchema, personSchema, faqPageSchema } from '@/utils/schema';
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      '@id': 'https://henrypendleton.com/#website',
-      url: 'https://henrypendleton.com/',
-      name: siteConfig.name,
-      description: 'MarTech Software Engineer building web and marketing technology solutions.',
-    },
-    {
-      '@type': 'Person',
-      '@id': 'https://henrypendleton.com/#person',
-      name: siteConfig.name,
-      url: 'https://henrypendleton.com/',
-      jobTitle: siteConfig.title,
-      sameAs: [siteConfig.github, siteConfig.linkedin],
-      email: siteConfig.email,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Charleston',
-        addressRegion: 'SC',
-        addressCountry: 'US',
-      },
-    },
-  ],
-};
+const structuredData = graph([websiteSchema, personSchema, faqPageSchema]);
 ---
 
 <BaseLayout
@@ -48,6 +23,7 @@ const structuredData = {
     <SelectedWork />
     <MoreProjects />
     <About />
+    <Faq />
     <Contact />
   </main>
 </BaseLayout>

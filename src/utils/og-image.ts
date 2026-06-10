@@ -11,7 +11,11 @@ const interSemiBold = readFileSync(
   resolve("src/assets/fonts/Inter-SemiBold.ttf")
 );
 
-export async function generateOgImage(title: string, tags: string[] = []) {
+export async function generateOgImage(
+  title: string,
+  tags: string[] = [],
+  section: string = "blog"
+) {
   const fontSize = title.length > 50 ? 48 : 56;
   const tagSpans = tags
     .slice(0, 4)
@@ -27,7 +31,7 @@ export async function generateOgImage(title: string, tags: string[] = []) {
         <div style="display: flex; align-items: center; gap: 12px; color: #a1a1aa; font-size: 20px;">
           <span style="color: #3b82f6;">henrypendleton.com</span>
           <span>/</span>
-          <span>blog</span>
+          <span>${section}</span>
         </div>
         <div style="font-size: ${fontSize}px; font-weight: 600; color: #fafafa; line-height: 1.2; max-width: 900px;">
           ${title}

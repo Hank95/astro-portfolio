@@ -1,66 +1,34 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { resume } from '@/data/resume';
+import { graph, personSchema, breadcrumbs, PERSON_ID, SITE_URL } from '@/utils/schema';
 
-// Generate JSON-LD structured data
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": "https://henrypendleton.com/resume#person",
-  name: resume.name,
-  jobTitle: resume.title,
-  description: resume.summary,
-  email: `mailto:${resume.email}`,
-  telephone: resume.phone,
-  url: "https://henrypendleton.com",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Charleston",
-    addressRegion: "SC",
-    addressCountry: "US",
-  },
-  sameAs: [
-    `https://github.com/${resume.github}`,
-    "https://www.linkedin.com/in/henry-pendleton",
-  ],
-  worksFor: {
-    "@type": "Organization",
-    name: resume.professionalExperience[0].company,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Charleston",
-      addressRegion: "SC",
-      addressCountry: "US",
-    },
-  },
-  alumniOf: resume.education.map((edu) => ({
-    "@type": "EducationalOrganization",
-    name: edu.school,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: edu.location.split(", ")[0],
-      addressRegion: edu.location.split(", ")[1],
-      addressCountry: "US",
-    },
-  })),
-  knowsAbout: Object.values(resume.technicalSkills).flat(),
-};
+// Resume points at the single canonical Person entity (shared @id) and adds a
+// telephone the homepage doesn't expose, plus a ProfilePage wrapper.
+const resumePerson = { ...personSchema, telephone: resume.phone };
 
 const profilePageSchema = {
-  "@context": "https://schema.org",
   "@type": "ProfilePage",
-  mainEntity: {
-    "@id": "https://henrypendleton.com/resume#person",
-  },
+  "@id": `${SITE_URL}/resume`,
+  mainEntity: { "@id": PERSON_ID },
   dateModified: new Date().toISOString().split("T")[0],
   description: `Professional resume for ${resume.name}, ${resume.title}`,
 };
+
+const structuredData = graph([
+  resumePerson,
+  profilePageSchema,
+  breadcrumbs([
+    { name: "Home", url: "/" },
+    { name: "Resume", url: "/resume" },
+  ]),
+]);
 ---
 
 <BaseLayout
   title="Resume - Henry Pendleton"
   description="Henry Pendleton's resume. MarTech Software Engineer building web and marketing technology solutions at Maymont Homes."
-  structuredData={[personSchema, profilePageSchema] as any}
+  structuredData={structuredData}
 >
 
   <main id="main" class="flex-1 pt-24 pb-8 px-4">

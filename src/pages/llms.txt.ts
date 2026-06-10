@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { projects } from "@/data/projects";
-import { siteConfig, about } from "@/data/content";
+import { siteConfig, about, faqs } from "@/data/content";
 import { SITE_URL } from "@/utils/schema";
 
 /**
@@ -55,6 +55,12 @@ export const GET: APIRoute = async () => {
     lines.push(
       `- [${post.data.title}](${SITE_URL}/blog/${slug}): ${post.data.description}`
     );
+  }
+  lines.push("");
+
+  lines.push("## FAQ");
+  for (const faq of faqs) {
+    lines.push(`- **${faq.question}** ${faq.answer}`);
   }
   lines.push("");
 

@@ -1,4 +1,4 @@
-import { siteConfig } from "@/data/content";
+import { siteConfig, faqs } from "@/data/content";
 import { resume } from "@/data/resume";
 
 /**
@@ -61,6 +61,20 @@ export const websiteSchema = {
   inLanguage: "en-US",
   publisher: { "@id": PERSON_ID },
   author: { "@id": PERSON_ID },
+};
+
+/** FAQPage entity built from the shared FAQ list. */
+export const faqPageSchema = {
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/#faq`,
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
 };
 
 /** Build a BreadcrumbList from a list of { name, url } crumbs. */

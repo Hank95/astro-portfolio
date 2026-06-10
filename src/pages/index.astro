@@ -6,9 +6,10 @@ import MoreProjects from '@/components/home/MoreProjects.astro';
 import About from '@/components/home/About.astro';
 import Now from '@/components/home/Now.astro';
 import Contact from '@/components/home/Contact.astro';
-import { graph, websiteSchema, personSchema } from '@/utils/schema';
+import Faq from '@/components/home/Faq.astro';
+import { graph, websiteSchema, personSchema, faqPageSchema } from '@/utils/schema';
 
-const structuredData = graph([websiteSchema, personSchema]);
+const structuredData = graph([websiteSchema, personSchema, faqPageSchema]);
 ---
 
 <BaseLayout
@@ -22,6 +23,7 @@ const structuredData = graph([websiteSchema, personSchema]);
     <SelectedWork />
     <MoreProjects />
     <About />
+    <Faq />
     <Contact />
   </main>
 </BaseLayout>

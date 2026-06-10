@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { projects } from "@/data/projects";
-import { siteConfig, about } from "@/data/content";
+import { siteConfig, about, faqs } from "@/data/content";
 import { resume } from "@/data/resume";
 import { SITE_URL } from "@/utils/schema";
 
@@ -58,6 +58,15 @@ export const GET: APIRoute = async () => {
     out.push(`- ${edu.degree}, ${edu.school} (${edu.date})`);
   }
   out.push("");
+
+  // --- FAQ ---
+  out.push("## FAQ");
+  out.push("");
+  for (const faq of faqs) {
+    out.push(`### ${faq.question}`);
+    out.push(faq.answer);
+    out.push("");
+  }
 
   // --- Projects ---
   out.push("## Projects");

@@ -1,6 +1,6 @@
 # Security headers for every response.
-# __CSP__ is replaced at build time by scripts/csp.mjs with a policy that lists
-# the hash of each inline script in the built pages.
+# The Content-Security-Policy value is a placeholder: scripts/csp.mjs replaces it
+# after the build with a policy that lists the hash of each inline script.
 /*
   Content-Security-Policy: __CSP__
   Strict-Transport-Security: max-age=31536000

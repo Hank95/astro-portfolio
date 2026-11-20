@@ -1,9 +1,9 @@
 // Post-build step: fill in the Content-Security-Policy in dist/_headers.
 //
-// The site ships a handful of inline scripts (theme bootstrap, analytics config,
-// small component scripts Astro inlines). Rather than allow 'unsafe-inline', this
-// hashes every inline script found in the built HTML and lists those hashes in
-// script-src, so the policy always matches what was actually built.
+// The site ships two inline scripts (theme bootstrap and analytics config).
+// Rather than allow 'unsafe-inline', this hashes every inline script found in the
+// built HTML and lists those hashes in script-src, so the policy always matches
+// what was actually built.
 import { createHash } from 'node:crypto';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -53,8 +53,9 @@ const csp = [
 
 const headersPath = join(DIST, '_headers');
 const headers = await readFile(headersPath, 'utf8');
-if (!headers.includes(PLACEHOLDER)) {
-  throw new Error(`dist/_headers has no ${PLACEHOLDER} placeholder; CSP was not written.`);
+const target = `Content-Security-Policy: ${PLACEHOLDER}`;
+if (!headers.includes(target)) {
+  throw new Error(`dist/_headers has no "${target}" line; CSP was not written.`);
 }
-await writeFile(headersPath, headers.replace(PLACEHOLDER, csp));
+await writeFile(headersPath, headers.replace(target, `Content-Security-Policy: ${csp}`));
 console.log(`[csp] wrote policy with ${hashes.size} inline script hashes`);

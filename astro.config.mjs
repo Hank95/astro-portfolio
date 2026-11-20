@@ -10,5 +10,10 @@ export default defineConfig({
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Emit every script and font as a file instead of inlining small ones, so the
+      // Content-Security-Policy needs no data: sources and fewer inline-script hashes.
+      assetsInlineLimit: 0,
+    },
   },
 });

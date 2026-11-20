@@ -5,6 +5,8 @@ export interface Project {
   status: "live" | "building" | "professional" | "archived";
   techStack: string[];
   featured: boolean;
+  /** Operating systems for SoftwareApplication JSON-LD. Defaults to iOS for App Store apps. */
+  platforms?: string[];
   image?: string;
   images?: {
     src: string;
@@ -30,29 +32,30 @@ export const projects: Project[] = [
   {
     slug: "klew",
     title: "Klew",
-    subtitle: "Two-sided crossword platform: build on the web, solve on iOS with Apple Pencil, climb a skill-rating ladder",
+    subtitle: "A free daily crossword for iPhone, iPad, Mac and the web: hand-edited puzzles in four sizes, every day",
     status: "live",
     featured: true,
-    techStack: ["SwiftUI", "Next.js", "Rust/WASM", "Supabase", "Claude API"],
+    techStack: ["SwiftUI", "Next.js", "Rust", "Supabase", "Core ML", "Claude API"],
+    platforms: ["iOS", "iPadOS", "macOS", "Web"],
     links: {
       live: "https://klew.app",
       appStore: "https://apps.apple.com/us/app/klew/id6760475511",
     },
     caseStudy: {
-      overview: `A two-sided crossword platform. Constructors build and publish puzzles through a web editor with a constraint-solving autofill engine. Solvers play them on iOS with Apple Pencil support (via native Scribble) or on the web, with progress synced across devices. On top sits a competitive layer: every puzzle is automatically graded for difficulty, and solvers earn lifetime points and a par-relative skill rating that ranks them on global leaderboards.`,
-      problem: `Crossword tools are either expensive professional software or bare-bones web apps, and solvers are mostly stuck with a handful of big publishers. There was no open platform where independent constructors could publish puzzles to a real audience, no solver that lets you write answers with Apple Pencil the way you would on newspaper, and no competitive ladder that measures how well you actually solve.`,
+      overview: `A free daily crossword at klew.app and on the App Store for iPhone, iPad and Mac. Every day brings a 5x5 mini, a 9x9 midi and an 11x11 daily, plus a 13x13 weekly on Sundays, and nothing is paywalled. Solvers keep streaks, earn achievements, climb a skill-rated leaderboard and race friends head to head. Independent constructors can also build and publish their own puzzles on the web. I build and run all of it solo: the native apps, the website and backend, and the pipeline that makes each day's puzzles.`,
+      problem: `Most good daily crosswords sit behind a subscription or inside one big publisher's app. I wanted a fresh, well-edited crossword every day that is free everywhere, feels native on every Apple device, including writing answers with Apple Pencil the way you would on a newspaper, and gives solvers a reason to come back tomorrow.`,
       whatIBuilt: [
-        "iOS solver with Apple Pencil input via native Scribble, using a single persistent ScribbleTextField that overlays the selected cell, capturing strokes alongside the OS's built-in recognition while storing PKDrawing data for visual playback",
-        "Web-based grid editor with a Rust/WebAssembly CSP (constraint satisfaction) autofill engine backed by a ~540k word dictionary",
-        "Offline puzzle-generation pipeline (a native Rust CLI) that pairs the same constraint solver with Claude advisors to generate daily puzzles and grade fill quality",
-        "Competitive scoring system: automatic difficulty grading, lifetime points, and a par-relative Elo skill rating with global and per-puzzle leaderboards",
-        "Weekly recap and solver analytics: solve heatmap, day-of-week distribution, and rating-trend charts",
-        "Share loop with dynamic OG images for every puzzle link (including \"beat my time\" cards) and click attribution",
-        "Cross-platform progress sync via Supabase with a local-first architecture and last-write-wins conflict resolution",
-        "Full authentication with Sign in with Apple and magic link email, plus constructor profiles, ratings, reviews, and a follow system",
+        "Native SwiftUI apps for iPhone, iPad and Mac, plus home screen widgets, all built on one shared Swift package for models, solving state, sync and networking",
+        "Apple Pencil handwriting on iPad: every cell has its own Scribble target so letters can be written back to back, with a small on-device Core ML letter model as a fallback when Scribble returns nothing",
+        "Next.js web app at klew.app with a full solver and a grid editor for constructors",
+        "Rust constraint-solver fill engine, compiled to WebAssembly for the web editor and to a native CLI that fills each week's daily grids",
+        "Daily puzzle pipeline: AI-drafted clues that are reviewed, edited by hand and scheduled on an editorial desk",
+        "Supabase backend with Sign in with Apple and magic link, cross-device progress sync, and server-side checks that verify a solve before it counts toward streaks and leaderboards",
+        "Competitive and social layer: a par-relative Elo skill rating, leaderboards, achievements, friends and head-to-head race links",
+        "Share loop with dynamic OG images for every puzzle link",
       ],
-      keyDecisions: `The Scribble integration uses one persistent UITextField positioned over the active cell rather than per-cell text fields, which avoids destroying and recreating the responder chain on every cell advance. Strokes are captured at the window level via a custom gesture recognizer on UITextEffectsWindow and buffered without triggering re-renders until Scribble commits a letter. The autofill engine is written once in Rust and compiles to two targets: WebAssembly for the in-browser editor and a native CLI for offline daily-puzzle generation. Solver skill is measured with a par-relative Elo rating rather than raw solve counts, so the leaderboard rewards how well you solve, not how much.`,
-      results: `Live on the web at klew.app and on the iOS App Store, shipping a fresh daily puzzle.`,
+      keyDecisions: `One shared Swift package holds the logic for every Apple platform, so the Mac app reached feature parity with thin Mac-only views on top. Apple Pencil input moved from a single text field that followed the selection to one Scribble target per cell, which removed about a second of waiting per letter when writing quickly. The fill engine is written once in Rust and reused in the browser and on the command line. Skill is measured with a par-relative Elo rating rather than raw solve counts, so the leaderboard rewards how well you solve, not how much.`,
+      results: `Live at klew.app and on the App Store for iPhone, iPad and Mac, with fresh puzzles every day.`,
     },
   },
   {

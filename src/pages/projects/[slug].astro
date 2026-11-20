@@ -32,7 +32,7 @@ const workSchema = {
   keywords: project.techStack,
   ...(externalLinks.length ? { sameAs: externalLinks } : {}),
   ...(isApp
-    ? { applicationCategory: 'MobileApplication', operatingSystem: 'iOS' }
+    ? { applicationCategory: 'MobileApplication', operatingSystem: (project.platforms ?? ['iOS']).join(', ') }
     : {}),
   ...(project.images?.[0] ? { image: absoluteUrl(project.images[0].src) } : {}),
 };

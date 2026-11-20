@@ -82,10 +82,10 @@ export const resume = {
       name: "Klew",
       demo: "https://klew.app",
       description: [
-        "Two-sided crossword puzzle marketplace — constructors publish through a web editor, solvers play on iOS with Apple Pencil support via native Scribble.",
+        "Free daily crossword for iPhone, iPad, Mac and the web: a mini, midi and daily every day plus a Sunday weekly, with a web editor where independent constructors can publish their own puzzles.",
         "Built a Rust/WebAssembly constraint-satisfaction autofill engine backed by a 400k+ word dictionary for the web-based grid editor.",
         "Implemented cross-platform progress sync using Supabase with local-first architecture and last-write-wins conflict resolution.",
-        "Shipped credits-based marketplace with StoreKit 2 in-app purchases and server-side receipt validation via Supabase Edge Functions.",
+        "Built native SwiftUI apps for iPhone, iPad and Mac on one shared Swift package, with Apple Pencil handwriting on iPad (per-cell Scribble targets plus an on-device Core ML fallback).",
       ],
     },
     {

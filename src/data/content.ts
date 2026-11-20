@@ -11,21 +11,24 @@ export const intro = {
   headline: "Henry Pendleton",
   subtitle: "MarTech Software Engineer",
   description:
-    "I build web and marketing technology solutions that drive digital performance. Currently at Maymont Homes, working at the intersection of engineering and marketing.",
+    "I build web and marketing technology solutions that drive digital performance. Currently at Maymont Homes, working at the intersection of engineering and marketing. On the side I make Klew, a free daily crossword for iPhone, iPad, Mac and the web.",
   location: "Based in Charleston, SC.",
 };
 
-export const now = {
+export const now: { building: { text: string; href?: string }[] } = {
   building: [
-    "MarTech Software Engineer at Maymont Homes",
-    "Building marketing automation and web technology solutions",
+    { text: "MarTech Software Engineer at Maymont Homes" },
+    {
+      text: "Building Klew, a free daily crossword for iPhone, iPad, Mac and the web",
+      href: "/projects/klew",
+    },
   ],
 };
 
 export const about = {
   paragraphs: [
     "MarTech Software Engineer at Maymont Homes in Charleston, SC. I design and develop web and marketing technology solutions that enhance digital performance, enable automation, and strengthen customer engagement.",
-    "Before this role, I built React dashboards, native iOS apps, and Python-based analytics tools. Earlier still, I worked in yacht sales and studied economics\u2014different work, but the same skills: understanding real needs, communicating clearly, and solving problems systematically.",
+    "Before this role, I built React dashboards, native iOS apps, and Python-based analytics tools. Earlier still, I worked in yacht sales and studied economics. Different work, but the same skills: understanding real needs, communicating clearly, and solving problems systematically.",
     "Outside of work, I\u2019m usually on a long run or building something.",
   ],
 };
@@ -50,7 +53,7 @@ export const faqs = [
   {
     question: "Who is Henry Pendleton?",
     answer:
-      "Henry Pendleton is a MarTech Software Engineer based in Charleston, SC. He builds web platforms, native iOS apps, and marketing technology, and currently works at Maymont Homes designing web and marketing technology solutions that drive digital performance.",
+      "Henry Pendleton is a MarTech Software Engineer based in Charleston, SC. He builds web platforms, native iOS apps, and marketing technology, and currently works at Maymont Homes designing web and marketing technology solutions that drive digital performance. On the side he builds and runs Klew, a free daily crossword for iPhone, iPad, Mac and the web.",
   },
   {
     question: "What technologies does Henry work with?",
@@ -60,7 +63,7 @@ export const faqs = [
   {
     question: "What kind of projects has Henry built?",
     answer:
-      "Henry has shipped Klew (a two-sided crossword platform with a Rust/WebAssembly autofill engine and an iOS solver), several App Store iOS apps including ListLive and CribScore, data-visualization dashboards for Formula 1 and professional racing teams, and developer tools like MDPM, a markdown-native project tracker for Claude Code.",
+      "Henry has shipped Klew (a free daily crossword at klew.app and on the App Store for iPhone, iPad and Mac, with a Rust fill engine and Apple Pencil handwriting on iPad), several App Store iOS apps including ListLive and CribScore, data-visualization dashboards for Formula 1 and professional racing teams, and developer tools like MDPM, a markdown-native project tracker for Claude Code.",
   },
   {
     question: "Is Henry available for work or collaboration?",

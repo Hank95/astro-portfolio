@@ -1,5 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import { now } from '@/data/content';
+
+const [latestPost] = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+
+const items = [
+  ...now.building,
+  ...(latestPost
+    ? [{ text: `Latest post: ${latestPost.data.title}`, href: `/blog/${latestPost.id.replace(/\.md$/, '')}` }]
+    : []),
+];
 ---
 
 <div class="content-container py-4">
@@ -8,7 +20,7 @@ import { now } from '@/data/content';
       <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
       <span class="font-mono text-xs uppercase tracking-wider text-text-subtle">Now</span>
     </div>
-    {now.building.map((item) => (
+    {items.map((item) => (
       <span class="flex items-center gap-1.5">
         <svg class="w-3.5 h-3.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         {item.href ? (

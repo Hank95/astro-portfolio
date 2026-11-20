@@ -11,23 +11,24 @@ export const intro = {
   headline: "Henry Pendleton",
   subtitle: "MarTech Software Engineer",
   description:
-    "I build web and marketing technology solutions that drive digital performance. Currently at Maymont Homes, working at the intersection of engineering and marketing. On the side I make Klew, a free daily crossword for iPhone, iPad, Mac and the web.",
+    "At Maymont Homes I build the web and marketing systems: analytics and tracking, CRM and CMS integrations, and fast, search-friendly pages. On the side I make Klew, a free daily crossword for iPhone, iPad, Mac and the web.",
   location: "Based in Charleston, SC.",
 };
 
+// The "Now" strip under the hero. The latest blog post is appended automatically
+// in Now.astro, so this list only holds what is not already said in the intro.
 export const now: { building: { text: string; href?: string }[] } = {
   building: [
-    { text: "MarTech Software Engineer at Maymont Homes" },
     {
-      text: "Building Klew, a free daily crossword for iPhone, iPad, Mac and the web",
-      href: "/projects/klew",
+      text: "Building Rhumbly, a location-based treasure hunt for iOS",
+      href: "/projects/treasuremap",
     },
   ],
 };
 
 export const about = {
   paragraphs: [
-    "MarTech Software Engineer at Maymont Homes in Charleston, SC. I design and develop web and marketing technology solutions that enhance digital performance, enable automation, and strengthen customer engagement.",
+    "I\u2019m a software engineer in Charleston, SC, working on marketing technology at Maymont Homes. I ship production code across the stack: React and Astro on the web, SwiftUI on iOS, Python for data, and Rust when the problem calls for it.",
     "Before this role, I built React dashboards, native iOS apps, and Python-based analytics tools. Earlier still, I worked in yacht sales and studied economics. Different work, but the same skills: understanding real needs, communicating clearly, and solving problems systematically.",
     "Outside of work, I\u2019m usually on a long run or building something.",
   ],
@@ -47,8 +48,9 @@ export const navLinks = [
   { label: "Uses", href: "/uses" },
 ];
 
-// Question-shaped content for answer engines (and humans). Surfaced on the
-// homepage and emitted as FAQPage JSON-LD.
+// Question-shaped content for answer engines. Published in /llms.txt and
+// /llms-full.txt only; it is written in the third person, so it is not shown
+// on the homepage.
 export const faqs = [
   {
     question: "Who is Henry Pendleton?",

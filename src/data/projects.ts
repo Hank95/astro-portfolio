@@ -68,7 +68,7 @@ export const projects: Project[] = [
       },
     ],
     caseStudy: {
-      overview: `A free daily crossword at klew.app and on the App Store for iPhone, iPad and Mac. Every day brings a 5x5 mini, a 9x9 midi and an 11x11 daily, plus a 13x13 weekly on Sundays, and nothing is paywalled. Solvers keep streaks, earn achievements, climb a skill-rated leaderboard and race friends head to head. Independent constructors can also build and publish their own puzzles on the web. I build and run all of it solo: the native apps, the website and backend, and the pipeline that makes each day's puzzles.`,
+      overview: `A free daily crossword at klew.app and on the App Store for iPhone, iPad and Mac. Every day brings a 5x5 mini, a 9x9 midi and an 11x11 daily, plus a 13x13 weekly on Sundays, and nothing is paywalled. Solvers keep streaks, earn achievements, climb a skill-rated leaderboard and race friends head to head. Independent constructors can also build and publish their own puzzles on the web. It is a personal project, built on nights and weekends: I wrote the native apps, the website and backend, and the pipeline that makes each day's puzzles.`,
       problem: `Most good daily crosswords sit behind a subscription or inside one big publisher's app. I wanted a fresh, well-edited crossword every day that is free everywhere, feels native on every Apple device, including writing answers with Apple Pencil the way you would on a newspaper, and gives solvers a reason to come back tomorrow.`,
       whatIBuilt: [
         "Native SwiftUI apps for iPhone, iPad and Mac, plus home screen widgets, all built on one shared Swift package for models, solving state, sync and networking",

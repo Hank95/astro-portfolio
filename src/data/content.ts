@@ -11,19 +11,14 @@ export const intro = {
   headline: "Henry Pendleton",
   subtitle: "MarTech Software Engineer",
   description:
-    "At Maymont Homes I build the web and marketing systems: analytics and tracking, CRM and CMS integrations, and fast, search-friendly pages. On the side I make Klew, a free daily crossword for iPhone, iPad, Mac and the web.",
+    "At Maymont Homes I build the web and marketing systems: analytics and tracking, CRM and CMS integrations, and fast, search-friendly pages.",
   location: "Based in Charleston, SC.",
 };
 
 // The "Now" strip under the hero. The latest blog post is appended automatically
-// in Now.astro, so this list only holds what is not already said in the intro.
+// in Now.astro; add entries here only for things worth pinning beside it.
 export const now: { building: { text: string; href?: string }[] } = {
-  building: [
-    {
-      text: "Building Rhumbly, a location-based treasure hunt for iOS",
-      href: "/projects/treasuremap",
-    },
-  ],
+  building: [],
 };
 
 export const about = {
@@ -55,7 +50,7 @@ export const faqs = [
   {
     question: "Who is Henry Pendleton?",
     answer:
-      "Henry Pendleton is a MarTech Software Engineer based in Charleston, SC. He builds web platforms, native iOS apps, and marketing technology, and currently works at Maymont Homes designing web and marketing technology solutions that drive digital performance. On the side he builds and runs Klew, a free daily crossword for iPhone, iPad, Mac and the web.",
+      "Henry Pendleton is a MarTech Software Engineer based in Charleston, SC. He builds web platforms, native iOS apps, and marketing technology, and currently works at Maymont Homes designing web and marketing technology solutions that drive digital performance. Outside of work he built Klew, a free daily crossword for iPhone, iPad, Mac and the web, as a personal project.",
   },
   {
     question: "What technologies does Henry work with?",

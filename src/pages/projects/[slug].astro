@@ -99,7 +99,7 @@ const structuredData = graph([
 
         <div class="flex flex-wrap gap-2">
           {project.techStack.map((tech) => (
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-bg-subtle text-text-muted border border-border">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-sm text-xs font-mono bg-bg-subtle text-text-muted border border-border">
               {tech}
             </span>
           ))}
@@ -227,7 +227,10 @@ const structuredData = graph([
             <img
               src={project.images[0].src}
               alt={project.images[0].alt}
-              class="w-full rounded-lg border border-border"
+              width={project.images[0].width}
+              height={project.images[0].height}
+              decoding="async"
+              class="w-full h-auto rounded-lg border border-border"
               loading="eager"
             />
             {project.images[0].caption && (
@@ -247,7 +250,10 @@ const structuredData = graph([
                   <img
                     src={image.src}
                     alt={image.alt}
-                    class="w-full rounded-lg border border-border"
+                    width={image.width}
+                    height={image.height}
+                    decoding="async"
+                    class="w-full h-auto rounded-lg border border-border"
                     loading="lazy"
                   />
                   {image.caption && (

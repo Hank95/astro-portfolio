@@ -12,6 +12,9 @@ export interface Project {
     src: string;
     alt: string;
     caption?: string;
+    /** Intrinsic size, so the browser can reserve space before the image loads. */
+    width: number;
+    height: number;
   }[];
   links: {
     live?: string;
@@ -41,8 +44,31 @@ export const projects: Project[] = [
       live: "https://klew.app",
       appStore: "https://apps.apple.com/us/app/klew/id6760475511",
     },
+    images: [
+      {
+        src: "/klew/iphone.webp",
+        alt: "Three Klew iPhone screens: the home screen with the day's puzzles, the solver partway through a 5x5, and the completion screen",
+        caption: "Klew on iPhone: today's puzzles, the solver, and the finish",
+        width: 1980,
+        height: 1434,
+      },
+      {
+        src: "/klew/ipad-pencil.webp",
+        alt: "Klew on iPad with answers handwritten into the grid using Apple Pencil",
+        caption: "Apple Pencil handwriting on iPad",
+        width: 960,
+        height: 1280,
+      },
+      {
+        src: "/klew/ipad-solver.webp",
+        alt: "Klew's iPad solver showing the clue lists above a partly filled grid",
+        caption: "The iPad solver with across and down clue lists",
+        width: 960,
+        height: 1280,
+      },
+    ],
     caseStudy: {
-      overview: `A free daily crossword at klew.app and on the App Store for iPhone, iPad and Mac. Every day brings a 5x5 mini, a 9x9 midi and an 11x11 daily, plus a 13x13 weekly on Sundays, and nothing is paywalled. Solvers keep streaks, earn achievements, climb a skill-rated leaderboard and race friends head to head. Independent constructors can also build and publish their own puzzles on the web. I build and run all of it solo: the native apps, the website and backend, and the pipeline that makes each day's puzzles.`,
+      overview: `A free daily crossword at klew.app and on the App Store for iPhone, iPad and Mac. Every day brings a 5x5 mini, a 9x9 midi and an 11x11 daily, plus a 13x13 weekly on Sundays, and nothing is paywalled. Solvers keep streaks, earn achievements, climb a skill-rated leaderboard and race friends head to head. Independent constructors can also build and publish their own puzzles on the web. It is a personal project, built on nights and weekends: I wrote the native apps, the website and backend, and the pipeline that makes each day's puzzles.`,
       problem: `Most good daily crosswords sit behind a subscription or inside one big publisher's app. I wanted a fresh, well-edited crossword every day that is free everywhere, feels native on every Apple device, including writing answers with Apple Pencil the way you would on a newspaper, and gives solvers a reason to come back tomorrow.`,
       whatIBuilt: [
         "Native SwiftUI apps for iPhone, iPad and Mac, plus home screen widgets, all built on one shared Swift package for models, solving state, sync and networking",
@@ -92,16 +118,22 @@ export const projects: Project[] = [
         alt: "Strava Local dashboard showing activity overview and statistics",
         caption:
           "Dashboard with summary stats, activity breakdown charts, and recent activities",
+        width: 1258,
+        height: 886,
       },
       {
         src: "/strava-local/heatmap.png",
         alt: "Heatmap visualization of all running and cycling routes",
         caption: "Interactive heatmap of every GPS-tracked activity",
+        width: 1258,
+        height: 886,
       },
       {
         src: "/strava-local/metrics.png",
         alt: "Training metrics showing fitness and fatigue curves",
         caption: "CTL/ATL/TSB fitness and fatigue tracking over time",
+        width: 1258,
+        height: 886,
       },
     ],
     links: {

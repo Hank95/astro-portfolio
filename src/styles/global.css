@@ -1,44 +1,89 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Dark mode is a class on <html>, set before first paint by the inline script in BaseLayout. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Values here are the light theme; .dark below overrides them. */
+@theme {
+  --color-bg: rgb(250 250 250);
+  --color-bg-subtle: rgb(244 244 245);
+  --color-bg-muted: rgb(228 228 231);
+  --color-text: rgb(24 24 27);
+  --color-text-muted: rgb(82 82 91);
+  --color-text-subtle: rgb(113 113 122);
+  --color-accent: rgb(59 130 246);
+  --color-accent-muted: rgb(29 78 216);
+  /* Status badge text sits on a 10% tint of itself, so the light-theme values are
+     dark enough to keep 4.5:1 contrast there. */
+  --color-status-live: rgb(22 101 52);
+  --color-status-building: rgb(146 64 14);
+  --color-status-professional: rgb(29 78 216);
+  --color-border: rgb(228 228 231);
+  --color-border-hover: rgb(212 212 216);
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora Variable', 'Sora', 'Inter Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-display: 3rem;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 600;
+  --text-title: 1.875rem;
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.01em;
+  --text-title--font-weight: 600;
+  --text-subtitle: 1.25rem;
+  --text-subtitle--line-height: 1.4;
+  --text-subtitle--font-weight: 500;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.4;
+}
 
 @layer base {
-  /* Light mode (default) */
   :root {
     --header-height: 4rem;
-    --color-bg: 250 250 250;
-    --color-bg-subtle: 244 244 245;
-    --color-bg-muted: 228 228 231;
-    --color-text: 24 24 27;
-    --color-text-muted: 82 82 91;
-    --color-text-subtle: 113 113 122;
-    --color-accent: 59 130 246;
-    --color-accent-muted: 29 78 216;
-    --color-status-live: 34 197 94;
-    --color-status-building: 245 158 11;
-    --color-status-professional: 59 130 246;
-    --color-border: 228 228 231;
-    --color-border-hover: 212 212 216;
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   .dark {
-    --color-bg: 10 10 11;
-    --color-bg-subtle: 20 20 21;
-    --color-bg-muted: 28 28 30;
-    --color-text: 250 250 250;
-    --color-text-muted: 161 161 170;
-    --color-text-subtle: 156 163 175;
-    --color-accent: 96 165 250;
-    --color-accent-muted: 59 130 246;
-    --color-status-live: 34 197 94;
-    --color-status-building: 245 158 11;
-    --color-status-professional: 96 165 250;
-    --color-border: 39 39 42;
-    --color-border-hover: 63 63 70;
+    --color-bg: rgb(10 10 11);
+    --color-bg-subtle: rgb(20 20 21);
+    --color-bg-muted: rgb(28 28 30);
+    --color-text: rgb(250 250 250);
+    --color-text-muted: rgb(161 161 170);
+    --color-text-subtle: rgb(156 163 175);
+    --color-accent: rgb(96 165 250);
+    --color-accent-muted: rgb(59 130 246);
+    --color-status-live: rgb(34 197 94);
+    --color-status-building: rgb(245 158 11);
+    --color-status-professional: rgb(96 165 250);
+    --color-border: rgb(39 39 42);
+    --color-border-hover: rgb(63 63 70);
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Tailwind 4 defaults borders to currentColor and buttons to the default cursor;
+     keep the v3 behaviour the components were written against. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
   }
 
   html {
@@ -70,11 +115,11 @@
   }
 
   h1, h2, h3 {
-    font-family: theme('fontFamily.display');
+    font-family: var(--font-display);
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-bg;
   }
 
   ::selection {
@@ -98,26 +143,26 @@
   }
 
   .prose {
-    --tw-prose-body: rgb(var(--color-text-muted));
-    --tw-prose-headings: rgb(var(--color-text));
-    --tw-prose-lead: rgb(var(--color-text-muted));
-    --tw-prose-links: rgb(var(--color-accent));
-    --tw-prose-bold: rgb(var(--color-text));
-    --tw-prose-counters: rgb(var(--color-text-subtle));
-    --tw-prose-bullets: rgb(var(--color-text-subtle));
-    --tw-prose-hr: rgb(var(--color-border));
-    --tw-prose-quotes: rgb(var(--color-text));
-    --tw-prose-quote-borders: rgb(var(--color-border));
-    --tw-prose-captions: rgb(var(--color-text-subtle));
-    --tw-prose-code: rgb(var(--color-text));
-    --tw-prose-pre-code: rgb(var(--color-text));
-    --tw-prose-pre-bg: rgb(var(--color-bg-subtle));
-    --tw-prose-th-borders: rgb(var(--color-border));
-    --tw-prose-td-borders: rgb(var(--color-border));
+    --tw-prose-body: var(--color-text-muted);
+    --tw-prose-headings: var(--color-text);
+    --tw-prose-lead: var(--color-text-muted);
+    --tw-prose-links: var(--color-accent);
+    --tw-prose-bold: var(--color-text);
+    --tw-prose-counters: var(--color-text-subtle);
+    --tw-prose-bullets: var(--color-text-subtle);
+    --tw-prose-hr: var(--color-border);
+    --tw-prose-quotes: var(--color-text);
+    --tw-prose-quote-borders: var(--color-border);
+    --tw-prose-captions: var(--color-text-subtle);
+    --tw-prose-code: var(--color-text);
+    --tw-prose-pre-code: var(--color-text);
+    --tw-prose-pre-bg: var(--color-bg-subtle);
+    --tw-prose-th-borders: var(--color-border);
+    --tw-prose-td-borders: var(--color-border);
   }
 
   .prose a { @apply underline underline-offset-2 hover:text-accent-muted transition-colors; }
-  .prose code { @apply font-mono text-small bg-bg-muted px-1.5 py-0.5 rounded; }
+  .prose code { @apply font-mono text-small bg-bg-muted px-1.5 py-0.5 rounded-sm; }
   .prose pre { @apply bg-bg-subtle border border-border rounded-lg p-4 overflow-x-auto; }
   .prose pre code { @apply bg-transparent p-0; }
   .prose blockquote { @apply border-l-2 border-accent pl-4 italic; }
@@ -138,27 +183,21 @@
     }
   }
 
-  .text-balance {
-    text-wrap: balance;
-  }
 
-  /* Scroll-triggered fade-in */
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(1rem);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
+  /*
+    Scroll reveal. Sections are visible by default. The script in BaseLayout adds
+    .reveal-ready to <html> once it is running, and only then are sections that are
+    still below the viewport hidden until they scroll in. With JavaScript off, or if
+    the script fails to load, nothing is ever hidden.
+  */
+  @media (prefers-reduced-motion: no-preference) {
     .animate-on-scroll {
-      opacity: 1;
-      transform: none;
-      transition: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal-ready .animate-on-scroll:not(.is-visible) {
+      opacity: 0;
+      transform: translateY(1rem);
     }
   }
 }

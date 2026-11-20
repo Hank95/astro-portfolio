@@ -90,7 +90,7 @@ export const resume = {
     },
     {
       name: "F1 Data Dashboard",
-      github: "https://github.com/hank95/f1-data-visualization",
+      github: "https://github.com/Hank95/f1-data-viz",
       demo: "https://f1.henrypendleton.com",
       description: [
         "Multi-season Formula 1 data visualization platform with live Jolpica API integration and graceful fallback to demo data.",

@@ -140,7 +140,7 @@ export const projects: Project[] = [
     ],
     links: {
       live: "https://f1.henrypendleton.com",
-      github: "https://github.com/hank95/f1-data-visualization",
+      github: "https://github.com/Hank95/f1-data-viz",
     },
     caseStudy: {
       overview: `A comprehensive F1 data visualization dashboard built to explore React 19 and modern routing patterns. Features real-time data integration with the Jolpica API (the community-backed successor to the deprecated Ergast API) and complete coverage of the 2020–2025 seasons.`,

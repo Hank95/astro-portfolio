@@ -3,6 +3,11 @@ import { ViewTransitions } from 'astro:transitions';
 import SEO from '@/components/SEO.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+// Self-hosted variable fonts: bundled and cached with the site, no render-blocking
+// request to Google Fonts.
+import '@fontsource-variable/inter';
+import '@fontsource-variable/sora';
+import '@fontsource-variable/jetbrains-mono';
 import '@/styles/global.css';
 
 interface ArticleMeta {
@@ -46,15 +51,6 @@ const {
         }
       })();
     </script>
-
-    <!-- Preconnect for Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Inter (300–700) + JetBrains Mono (400, 500) + Sora (400, 500, 600) -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
 
     <!-- RSS -->
     <link rel="alternate" type="application/rss+xml" title="Henry Pendleton" href="/rss.xml" />

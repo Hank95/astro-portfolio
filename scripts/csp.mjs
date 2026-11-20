@@ -1,15 +1,21 @@
-// Post-build step: fill in the Content-Security-Policy in dist/_headers.
+// Post-build step: keep the Content-Security-Policy in vercel.json in sync with the build.
 //
 // The site ships two inline scripts (theme bootstrap and analytics config).
 // Rather than allow 'unsafe-inline', this hashes every inline script found in the
-// built HTML and lists those hashes in script-src, so the policy always matches
-// what was actually built.
+// built HTML and lists those hashes in script-src.
+//
+// Vercel reads vercel.json before it builds, so the policy has to be committed.
+// A local build rewrites it when an inline script has changed; a CI or Vercel build
+// fails instead, so a stale policy can never be deployed.
 import { createHash } from 'node:crypto';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const DIST = new URL('../dist/', import.meta.url).pathname;
-const PLACEHOLDER = '__CSP__';
+const DIST = fileURLToPath(new URL('../dist/', import.meta.url));
+const CONFIG = fileURLToPath(new URL('../vercel.json', import.meta.url));
+const HEADER = 'Content-Security-Policy';
+const readOnly = Boolean(process.env.CI || process.env.VERCEL);
 
 async function htmlFiles(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -51,11 +57,25 @@ const csp = [
   `upgrade-insecure-requests`,
 ].join('; ');
 
-const headersPath = join(DIST, '_headers');
-const headers = await readFile(headersPath, 'utf8');
-const target = `Content-Security-Policy: ${PLACEHOLDER}`;
-if (!headers.includes(target)) {
-  throw new Error(`dist/_headers has no "${target}" line; CSP was not written.`);
+const config = JSON.parse(await readFile(CONFIG, 'utf8'));
+const entry = config.headers
+  ?.flatMap((rule) => rule.headers)
+  .find((header) => header.key === HEADER);
+if (!entry) {
+  throw new Error(`vercel.json has no ${HEADER} header to fill in.`);
 }
-await writeFile(headersPath, headers.replace(target, `Content-Security-Policy: ${csp}`));
-console.log(`[csp] wrote policy with ${hashes.size} inline script hashes`);
+
+if (entry.value === csp) {
+  console.log(`[csp] vercel.json is up to date (${hashes.size} inline script hashes)`);
+} else if (readOnly) {
+  console.error(
+    `[csp] The ${HEADER} in vercel.json does not match this build.\n` +
+      `      Run "npm run build" locally and commit vercel.json.\n\n` +
+      `      expected: ${csp}\n`,
+  );
+  process.exit(1);
+} else {
+  entry.value = csp;
+  await writeFile(CONFIG, `${JSON.stringify(config, null, 2)}\n`);
+  console.log(`[csp] updated vercel.json (${hashes.size} inline script hashes); commit the change`);
+}

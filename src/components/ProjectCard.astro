@@ -30,7 +30,7 @@ const { slug, title, subtitle, techStack, status, links } = project;
       >
         <a
           href={`/projects/${slug}`}
-          class="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
+          class="after:absolute after:inset-0 after:content-[''] focus-visible:outline-hidden"
         >
           {title}
         </a>
@@ -46,7 +46,7 @@ const { slug, title, subtitle, techStack, status, links } = project;
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${title} live site`}
-          class="p-1 rounded hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          class="p-1 rounded-sm hover:text-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +71,7 @@ const { slug, title, subtitle, techStack, status, links } = project;
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${title} GitHub repository`}
-          class="p-1 rounded hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          class="p-1 rounded-sm hover:text-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@ const { slug, title, subtitle, techStack, status, links } = project;
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${title} App Store`}
-          class="p-1 rounded hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          class="p-1 rounded-sm hover:text-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

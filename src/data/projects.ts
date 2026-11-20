@@ -2,7 +2,7 @@ export interface Project {
   slug: string;
   title: string;
   subtitle: string;
-  status: "live" | "building" | "professional";
+  status: "live" | "building" | "professional" | "archived";
   techStack: string[];
   featured: boolean;
   image?: string;
@@ -206,11 +206,10 @@ export const projects: Project[] = [
     slug: "wedding-website",
     title: "Wedding Website",
     subtitle: "RSVP system with interactive Charleston map",
-    status: "live",
+    status: "archived",
     featured: false,
     techStack: ["React", "Supabase", "Tailwind", "Leaflet"],
     links: {
-      live: "https://nobskaandhenry.com",
       github: "https://github.com/Hank95/wedding-site",
     },
     caseStudy: {

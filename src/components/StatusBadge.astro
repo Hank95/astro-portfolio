@@ -1,6 +1,6 @@
 ---
 interface Props {
-  status: 'live' | 'building' | 'professional';
+  status: 'live' | 'building' | 'professional' | 'archived';
   class?: string;
 }
 
@@ -18,6 +18,10 @@ const config = {
   professional: {
     label: 'Professional',
     classes: 'text-status-professional bg-status-professional/10',
+  },
+  archived: {
+    label: 'Archived',
+    classes: 'text-text-muted bg-bg-muted',
   },
 };
 
